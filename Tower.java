@@ -1,19 +1,18 @@
 import javax.swing.*;
 
 abstract class Tower extends ArmedEntity{
+    protected ImageIcon sprite;
+
     protected int cost;
     protected int unlock;
     protected int decay;
-
-    protected ImageIcon sprite;
-
     @Override
     public Tower clone() throws CloneNotSupportedException {
         return (Tower) super.clone();
     }
 
     public int get_cost(){ return cost; }
-
+    public int get_unlock(){ return unlock; }
     public ImageIcon get_sprite(){ return sprite; }
     abstract void power();
 }
@@ -21,7 +20,9 @@ abstract class Tower extends ArmedEntity{
 class Tower1 extends Tower {
     Tower1() {
         sprite = new ImageIcon("../resources/towers/tower1.png");
-        cost = 10;
+
+        cost = 15;
+        unlock = 0;
         // TODO set variables to the right start values
     }
 
@@ -38,7 +39,9 @@ class Tower1 extends Tower {
 class Tower2 extends Tower {
     Tower2() {
         sprite = new ImageIcon("../resources/towers/tower2.png");
+
         cost = 110;
+        unlock = 1;
         // TODO set variables to the right start values
     }
 

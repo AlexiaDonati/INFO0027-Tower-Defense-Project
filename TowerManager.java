@@ -1,6 +1,5 @@
 import graphics.TowerDefenseView;
-import graphics.exceptions.EmptySpriteException;
-import graphics.exceptions.WrongTowerPositionException;
+import graphics.exceptions.*;
 
 import javax.swing.*;
 import java.awt.geom.Point2D;
@@ -33,6 +32,13 @@ public class TowerManager {
     public int get_cost(int towerIndex){ return towerType[towerIndex].get_cost(); }
     public ImageIcon get_sprite(int towerIndex){ return towerType[towerIndex].get_sprite(); }
 
+    void unlock(int currLevel) throws UnknownTowerException {
+        for(int i = 0 ; i < nbrType ; i++){
+            if(currLevel == towerType[i].get_unlock()){
+                view.unlockTower(i);
+            }
+        }
+    }
     void add_Tower(int x, int y, int towerIndex){
         try {
             Tower newTower = towerType[towerIndex].clone();
