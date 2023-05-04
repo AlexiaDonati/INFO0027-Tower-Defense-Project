@@ -1,7 +1,7 @@
-abstract public interface GameState {
-    abstract void launchWave(Game game);
-    abstract void play(Game game);
-    abstract void moveTowerToField(int x, int y, int towerIndex, Game game);
+public interface GameState {
+    void launchWave(Game game);
+    void play(Game game);
+    void moveTowerToField(int x, int y, int towerIndex, Game game);
 }
 
 class PlayingState implements GameState {
@@ -24,9 +24,7 @@ class PlacingState implements GameState {
         game.init_Wave();
     }
 
-    public void play(Game game){
-        return;
-    }
+    public void play(Game game){ }
 
     public void moveTowerToField(int x, int y, int towerIndex, Game game){
         game.add_Tower(x, y, towerIndex);
