@@ -1,7 +1,6 @@
 import graphics.TowerDefenseView;
 import graphics.exceptions.*;
 
-import javax.print.attribute.standard.SheetCollate;
 import javax.swing.*;
 
 public class Base {
@@ -9,15 +8,12 @@ public class Base {
     private static final int y = 1;
 
     private int health;
-    private int healingRate;
+    private static final int healingRate = 5;
 
-    private ImageIcon sprite;
+    private static final ImageIcon sprite = new ImageIcon("../resources/base/base.png");
 
     private Base() {
-        sprite = new ImageIcon("../resources/base/base.png");
-
         health = 100;
-        healingRate = 5;
     }
 
     private static Base INSTANCE = null;

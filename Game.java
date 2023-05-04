@@ -11,7 +11,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     private GameState state;
     private TowerDefenseView view;
 
-    private Base base;
+    private static final Base base = Base.get_Base();
     private TowerManager towerManager;
 
     int currLevel;
@@ -27,7 +27,6 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             e.printStackTrace();
         }
 
-        base = base.get_Base();
         base.update(view);
 
         towerManager = new TowerManager(view);
