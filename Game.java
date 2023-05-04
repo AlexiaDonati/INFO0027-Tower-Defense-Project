@@ -7,7 +7,10 @@ import graphics.exceptions.*;
 import java.io.IOException;
 
 public class Game implements TowerDefenseEventsHandlerInterface {
+    private GameState state;
     private TowerDefenseView view;
+
+    private Base base;
     private TowerManager towerManager;
 
     int currLevel;
@@ -17,12 +20,14 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     private float budget;
 
     public Game(){
-
         try {
             view = new TowerDefenseView(this);
         } catch (IOException e){
             e.printStackTrace();
         }
+
+        base = base.get_Base();
+        base.update(view);
 
         towerManager = new TowerManager(view);
 
@@ -35,8 +40,12 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         startNewGame();
     }
 
+    public void set_state(GameState state){
+        this.state = state;
+    }
     @Override
     public void startNewGame() {
+        state = new PlacingState();
         currLevel = 0;
 
         budget = startBudget;
@@ -54,15 +63,34 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
     @Override
     public void launchWave() {
+        state.launchWave(this);
+    }
 
-        view.refreshWindow();
-        towerManager.update();
-
+    public void initWave(){
         currLevel++;
+
+        try {
+            towerManager.unlock(currLevel);
+        } catch (UnknownTowerException e) {
+            throw new RuntimeException(e);
+        }
+
         currTime = 0;
+    }
+    public void update(){
+        view.refreshWindow();
+        base.update(view);
+        towerManager.update();
+    }
+
+    private void play(){
+        state.play(this);
     }
 
     public static void main(String[] args) {
         Game game = new Game();
+        while (true){
+            game.play();
+        }
     }
 }
