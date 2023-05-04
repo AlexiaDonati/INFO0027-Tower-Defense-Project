@@ -2,14 +2,14 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
 class Wave {
-    private int nbrType = 4;
+    private Game game;
+    static final int nbrType = 4;
     private Enemy[] enemyType;
 
     private int nbrEnemy;
     private List<Enemy> listEnemy;
 
-    Wave() {
-        nbrType = 4;
+    Wave(Game game) {
         enemyType = new Enemy[nbrType];
 
         enemyType[0] = new Enemy1();
@@ -29,5 +29,13 @@ class Wave {
         } catch (CloneNotSupportedException e){
             e.printStackTrace();
         }
+    }
+
+    public int try_to_hit(int x, int y, int currTime){
+        int damageSum = 0;
+        for (Enemy enemy : listEnemy){
+            damageSum += enemy.try_to_hit(x, y, currTime);
+        }
+        return damageSum;
     }
 }
