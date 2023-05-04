@@ -1,10 +1,7 @@
-abstract class Enemy implements Cloneable {
+abstract class Enemy extends ArmedEntity{
     private int reward;
     private int health;
-    private int range;
     private int speed;
-    private int damage;
-    private int rate;
 
     @Override
     public Enemy clone() throws CloneNotSupportedException {
