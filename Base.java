@@ -16,8 +16,8 @@ public class Base {
     private Base() {
         sprite = new ImageIcon("../resources/base/base.png");
 
-        health = 1000;
-        healingRate = 10;
+        health = 100;
+        healingRate = 5;
     }
 
     private static Base INSTANCE = null;
@@ -37,7 +37,7 @@ public class Base {
         }
     }
 
-    public void play_turn(int currTime){
+    public void action(int currTime){
         if(currTime % healingRate == 0){
             health += 10;
         }

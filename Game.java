@@ -7,6 +7,7 @@ import graphics.exceptions.*;
 import java.io.IOException;
 
 public class Game implements TowerDefenseEventsHandlerInterface {
+    static final int fps = 30;
     private GameState state;
     private TowerDefenseView view;
 
@@ -14,7 +15,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     private TowerManager towerManager;
 
     int currLevel;
-    int currTime;
+    int currFrame;
 
     static final float startBudget = 50;
     private float budget;
@@ -46,6 +47,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     @Override
     public void startNewGame() {
         state = new PlacingState();
+
         currLevel = 0;
 
         budget = startBudget;
@@ -54,19 +56,22 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
     @Override
     public void moveTowerToField(int x, int y, int towerIndex) {
+        state.moveTowerToField(x, y, towerIndex, this);
+    }
+
+    public void add_Tower(int x, int y, int towerIndex) {
         if(budget - towerManager.get_cost(towerIndex-1) >= 0){
             towerManager.add_Tower(x, y, towerIndex-1);
             budget -= towerManager.get_cost(towerIndex-1);
             view.updateMoney(budget);
         }
     }
-
     @Override
     public void launchWave() {
         state.launchWave(this);
     }
 
-    public void initWave(){
+    public void init_Wave(){
         currLevel++;
 
         try {
@@ -75,22 +80,41 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             throw new RuntimeException(e);
         }
 
-        currTime = 0;
-    }
-    public void update(){
-        view.refreshWindow();
-        base.update(view);
-        towerManager.update();
+        currFrame = 0;
     }
 
-    private void play(){
-        state.play(this);
+    public void update(){
+        if(currFrame % 30 == 0){
+            int currTime = currFrame/30;
+
+            view.refreshWindow();
+
+            towerManager.update();
+
+            base.action(currTime);
+            base.update(view);
+        }
     }
 
     public static void main(String[] args) {
         Game game = new Game();
+
+        long time_before, time_after;
+        int	 ms_wait;
         while (true){
-            game.play();
+            time_before = System.currentTimeMillis();
+
+            game.currFrame++;
+            game.state.play(game);
+
+            time_after = System.currentTimeMillis();
+            ms_wait = (1000/fps) - (int) (time_after - time_before);
+            try {
+                if (ms_wait > 0) {
+                    Thread.sleep(ms_wait);
+                }
+            } catch(InterruptedException e) { throw new RuntimeException(e); }
+
         }
     }
 }

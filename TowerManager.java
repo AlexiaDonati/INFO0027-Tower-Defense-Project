@@ -60,7 +60,6 @@ public class TowerManager {
     public void update(){
         for(Tower t : listTower){
             Point2D pos = t.get_position();
-            System.out.print((int) pos.getX());
             try {
                 view.updateTowerField((int) pos.getX(), (int) pos.getY(), t.get_sprite(), 0);
             } catch (WrongTowerPositionException | EmptySpriteException e) {
