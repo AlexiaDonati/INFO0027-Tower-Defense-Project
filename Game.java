@@ -13,6 +13,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
     private static final Base base = Base.get_Base();
     private TowerManager towerManager;
+    private EnemyManager enemyManager;
 
     private static final int[][] map = {{0,1,0,0,0,0,0,0,0,0,0,0},
                                         {0,1,0,0,1,1,1,1,0,0,2,0},
@@ -40,13 +41,14 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         base.update(view);
 
         towerManager = new TowerManager(view);
-
         try{
             view.unlockTower(0);
         } catch (UnknownTowerException e) {
             e.printStackTrace();
         }
-        
+
+        enemyManager = new EnemyManager(view);
+
         startNewGame();
     }
 
@@ -91,6 +93,8 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     public void init_Wave(){
         currLevel++;
 
+        enemyManager.launch_wave(currLevel);
+
         try {
             towerManager.unlock(currLevel);
         } catch (UnknownTowerException e) {
@@ -107,6 +111,10 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             view.refreshWindow();
 
             towerManager.update();
+            if(enemyManager.checkForWin()){
+                System.out.print("won the wave");
+            }
+            enemyManager.update();
 
             base.action(currTime);
             base.update(view);
