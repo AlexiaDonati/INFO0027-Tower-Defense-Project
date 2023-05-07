@@ -14,6 +14,16 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     private static final Base base = Base.get_Base();
     private TowerManager towerManager;
 
+    private static final int[][] map = {{0,1,0,0,0,0,0,0,0,0,0,0},
+                                        {0,1,0,0,1,1,1,1,0,0,2,0},
+                                        {0,1,0,0,1,0,0,1,0,0,1,0},
+                                        {0,1,0,0,1,0,0,1,0,0,1,0},
+                                        {0,1,0,0,1,0,0,1,0,0,1,0},
+                                        {0,1,0,0,1,0,0,1,0,0,1,0},
+                                        {0,1,0,0,1,0,0,1,0,0,1,0},
+                                        {0,1,1,1,1,0,0,1,1,1,1,0},
+                                        {0,0,0,0,0,0,0,0,0,0,0,0}};
+
     int currLevel;
     int currFrame;
 
@@ -59,10 +69,18 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     }
 
     public void add_Tower(int x, int y, int towerIndex) {
+        if(map[y][x] != 0){
+            System.out.print("You can't add a new tower on the enemies path.\n");
+            return;
+        }
+
         if(budget - towerManager.get_cost(towerIndex-1) >= 0){
             towerManager.add_Tower(x, y, towerIndex-1);
             budget -= towerManager.get_cost(towerIndex-1);
             view.updateMoney(budget);
+        }
+        else{
+            System.out.print("You don't have enough money to add that tower.\n");
         }
     }
     @Override
