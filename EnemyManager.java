@@ -1,7 +1,7 @@
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
-class Wave {
+class EnemyManager {
     private Game game;
     static final int nbrType = 4;
     private Enemy[] enemyType;
@@ -9,7 +9,16 @@ class Wave {
     private int nbrEnemy;
     private List<Enemy> listEnemy;
 
-    Wave(Game game) {
+    private static final int[][] path = {{1, 0},
+            {1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {1, 7},
+            {2, 7}, {3, 7}, {4, 7},
+            {4, 6}, {4, 5}, {4, 4}, {4, 3}, {4, 2}, {4, 1},
+            {5, 1}, {6, 1}, {7, 1},
+            {7, 2}, {7, 3}, {7, 4}, {7, 5}, {7, 6}, {7, 7},
+            {8, 7}, {9, 7}, {10, 7},
+            {10, 6}, {10, 5}, {10, 4}, {10, 3}, {10, 2}, {10, 1}};
+
+    EnemyManager(Game game) {
         enemyType = new Enemy[nbrType];
 
         enemyType[0] = new Enemy1();
