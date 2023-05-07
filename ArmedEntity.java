@@ -1,6 +1,10 @@
+import javax.swing.*;
 import java.awt.geom.Point2D;
 public class ArmedEntity implements Cloneable{
+    protected ImageIcon sprite;
+
     private Point2D position;
+    protected int angle;
 
     protected int range;
     protected int damage;
@@ -17,6 +21,8 @@ public class ArmedEntity implements Cloneable{
         return clone;
     }
 
+    public ImageIcon get_sprite(){ return sprite; }
+
     public void set_position(int x, int y){
         position.setLocation(x, y);
     }
@@ -25,13 +31,15 @@ public class ArmedEntity implements Cloneable{
         return position;
     }
 
+    public int get_angle(){
+        return angle;
+    }
+
     private boolean can_reach(int x, int y){
         return range >= position.distance(x, y);
     }
 
-    private boolean can_fire(int currTime){
-        return !(currTime % rate == 0);
-    }
+    private boolean can_fire(int currTime){ return !(currTime % rate == 0); }
 
     public int try_to_hit(int x, int y, int currTime){
         if(can_reach(x, y) && can_fire(currTime)){

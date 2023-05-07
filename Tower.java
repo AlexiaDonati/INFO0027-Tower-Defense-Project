@@ -1,19 +1,19 @@
 import javax.swing.*;
 
 abstract class Tower extends ArmedEntity{
-    protected ImageIcon sprite;
-
     protected int cost;
     protected int unlock;
     protected int decay;
+
     @Override
     public Tower clone() throws CloneNotSupportedException {
         return (Tower) super.clone();
     }
 
     public int get_cost(){ return cost; }
+
     public int get_unlock(){ return unlock; }
-    public ImageIcon get_sprite(){ return sprite; }
+
     abstract void power();
 }
 

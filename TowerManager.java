@@ -10,20 +10,13 @@ public class TowerManager {
     private TowerDefenseView view;
 
     static final int nbrType = 4;
-    private Tower[] towerType;
+    private Tower[] towerType = {new Tower1(), new Tower2(), new Tower3(), new Tower4()};
 
     private int nbrTower;
     private List<Tower> listTower;
 
     TowerManager(TowerDefenseView view) {
         this.view = view;
-
-        towerType = new Tower[nbrType];
-
-        towerType[0] = new Tower1();
-        towerType[1] = new Tower2();
-        towerType[2] = new Tower3();
-        towerType[3] = new Tower4();
 
         nbrTower = 0;
         listTower = new ArrayList<Tower>();
