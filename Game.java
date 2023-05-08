@@ -55,6 +55,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     public void set_state(GameState state){
         this.state = state;
     }
+
     @Override
     public void startNewGame() {
         state = new PlacingState();
@@ -85,6 +86,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             System.out.print("You don't have enough money to add that tower.\n");
         }
     }
+
     @Override
     public void launchWave() {
         state.launchWave(this);
@@ -115,10 +117,18 @@ public class Game implements TowerDefenseEventsHandlerInterface {
                 System.out.print("won the wave");
             }
             enemyManager.update();
-
+            int damage = enemyManager.try_to_hit(base.x, base.y, currTime);
+            if(!base.try_to_hit(damage)){
+                gameOver();
+            }
             base.action(currTime);
             base.update(view);
         }
+    }
+
+    public void gameOver(){
+        base.update(view); // Show the empty health of the base to the player
+        view.promptNewGame();
     }
 
     public static void main(String[] args) {

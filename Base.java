@@ -4,8 +4,8 @@ import graphics.exceptions.*;
 import javax.swing.*;
 
 public class Base {
-    private static final int x = 10;
-    private static final int y = 1;
+    public static final int x = 10;
+    public static final int y = 1;
 
     private int health;
     private static final int healingRate = 5;
@@ -33,9 +33,21 @@ public class Base {
         }
     }
 
+    public boolean try_to_hit(int damage){
+        health -= damage;
+        if(health > 0){
+            return true;
+        }
+        return false;
+    }
+
     public void action(int currTime){
         if(currTime % healingRate == 0){
             health += 10;
+            if(health >= 100){
+                health = 100;
+            }
+
         }
     }
 }
