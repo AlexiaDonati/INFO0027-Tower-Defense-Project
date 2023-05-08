@@ -2,7 +2,6 @@ import javax.swing.*;
 
 abstract class Enemy extends ArmedEntity{
     protected int reward;
-    protected int health;
     protected double speed;
     protected double distance;
 

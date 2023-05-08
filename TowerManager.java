@@ -23,6 +23,7 @@ public class TowerManager {
     }
 
     public int get_cost(int towerIndex){ return towerType[towerIndex].get_cost(); }
+
     public ImageIcon get_sprite(int towerIndex){ return towerType[towerIndex].get_sprite(); }
 
     void unlock(int currLevel) throws UnknownTowerException {
@@ -32,6 +33,7 @@ public class TowerManager {
             }
         }
     }
+
     void add_Tower(int x, int y, int towerIndex){
         try {
             Tower newTower = towerType[towerIndex].clone();
@@ -50,6 +52,14 @@ public class TowerManager {
         }
     }
 
+    public void try_to_hit(EnemyManager enemyManager, int currTime){
+        for (Tower tower : listTower){
+            if(tower.can_fire(currTime)){
+                enemyManager.get_hit(tower);
+            }
+        }
+    }
+
     public void update(){
         for(Tower t : listTower){
             Point2D pos = t.get_position();
@@ -60,4 +70,5 @@ public class TowerManager {
             }
         }
     }
+
 }

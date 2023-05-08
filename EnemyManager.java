@@ -53,6 +53,19 @@ class EnemyManager {
         }
     }
 
+    public void get_hit(Tower tower){
+        for(Enemy enemy : listEnemy){
+
+            Point2D position = enemy.get_position();
+            if(tower.can_reach((int) position.getX(), (int) position.getY())){
+                if(enemy.hit(tower.get_damage()) <= 0){
+                    listEnemy.remove(enemy);
+                }
+                break;
+            }
+        }
+    }
+
     public int try_to_hit(int x, int y, int currTime){
         int damageSum = 0;
         for (Enemy enemy : listEnemy){

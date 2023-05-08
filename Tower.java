@@ -1,4 +1,9 @@
+import graphics.exceptions.EmptySpriteException;
+import graphics.exceptions.WrongAttackerPositionException;
+
 import javax.swing.*;
+import java.awt.geom.Point2D;
+import java.util.List;
 
 abstract class Tower extends ArmedEntity{
     protected int cost;
@@ -20,15 +25,24 @@ abstract class Tower extends ArmedEntity{
 class Tower1 extends Tower {
     Tower1() {
         sprite = new ImageIcon("../resources/towers/tower1.png");
+        range = 6;
+        damage = 5;
+        rate = 1;
 
         cost = 15;
         unlock = 0;
-        // TODO set variables to the right start values
     }
 
     @Override
     public Tower clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    public void try_to_hit(List<Enemy> listEnemy, int currTime){
+        if(!can_fire(currTime)){
+            return;
+        }
+
     }
 
     public void power(){

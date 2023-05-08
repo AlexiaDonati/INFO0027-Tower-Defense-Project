@@ -112,10 +112,12 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
             view.refreshWindow();
 
+            towerManager.try_to_hit(enemyManager, currTime);
             towerManager.update();
             if(enemyManager.checkForWin()){
                 System.out.print("won the wave");
             }
+
             enemyManager.update();
             int damage = enemyManager.try_to_hit(base.x, base.y, currTime);
             if(!base.try_to_hit(damage)){

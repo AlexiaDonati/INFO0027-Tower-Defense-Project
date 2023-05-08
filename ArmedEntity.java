@@ -7,6 +7,7 @@ public class ArmedEntity implements Cloneable{
     private Point2D position;
     protected int angle;
 
+    protected int health;
     protected int range;
     protected int damage;
     protected int rate;
@@ -36,16 +37,25 @@ public class ArmedEntity implements Cloneable{
         return angle;
     }
 
-    private boolean can_reach(int x, int y){
+    public int get_damage(){
+        return damage;
+    }
+
+    public boolean can_reach(int x, int y){
         return range >= position.distance(x, y);
     }
 
-    private boolean can_fire(int currTime){ return currTime % rate == 0; }
+    public boolean can_fire(int currTime){ return currTime % rate == 0; }
 
     public int try_to_hit(int x, int y, int currTime){
         if(can_reach(x, y) && can_fire(currTime)){
             return damage;
         }
         return 0;
+    }
+
+    public int hit(int damage){
+        health -= damage;
+        return health;
     }
 }
