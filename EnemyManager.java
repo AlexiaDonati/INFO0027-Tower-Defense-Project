@@ -44,9 +44,7 @@ class EnemyManager {
             enemy = enemyType[randomType].clone();
             listEnemy.add(enemy);
             nbrEnemy++;
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (CloneNotSupportedException e) { throw new RuntimeException(e); }
 
         try {
             view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());

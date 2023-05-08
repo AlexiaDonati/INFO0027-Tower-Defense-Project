@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.geom.Point2D;
+
 public class ArmedEntity implements Cloneable{
     protected ImageIcon sprite;
 
@@ -39,7 +40,7 @@ public class ArmedEntity implements Cloneable{
         return range >= position.distance(x, y);
     }
 
-    private boolean can_fire(int currTime){ return !(currTime % rate == 0); }
+    private boolean can_fire(int currTime){ return currTime % rate == 0; }
 
     public int try_to_hit(int x, int y, int currTime){
         if(can_reach(x, y) && can_fire(currTime)){
