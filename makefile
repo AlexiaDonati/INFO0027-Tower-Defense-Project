@@ -10,6 +10,7 @@ BINDIR = bin
 MAIN = Game
 
 all: 
+	mkdir -p $(BINDIR)
 	$(JC) -d $(BINDIR) -cp bin:graphics.jar $(SOURCES)
 
 run:
