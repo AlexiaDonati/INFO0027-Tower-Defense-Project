@@ -62,8 +62,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
         currLevel = 0;
 
+        view.refreshWindow();
+
+        base.reset();
+        base.update(view);
+
         budget = startBudget;
         view.updateMoney(budget);
+
+        enemyManager.reset();
     }
 
     @Override
@@ -115,7 +122,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             towerManager.try_to_hit(enemyManager, currTime);
             towerManager.update();
             if(enemyManager.checkForWin()){
-                System.out.print("won the wave");
+                state = new PlacingState();
             }
 
             enemyManager.update();

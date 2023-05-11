@@ -8,10 +8,7 @@ import java.util.*;
 class EnemyManager {
     private final TowerDefenseView view;
 
-    static final int nbrType = 4;
     private static final Enemy[] enemyType = {new Enemy1(), new Enemy2(), new Enemy3(), new Enemy4()};
-
-    private int nbrEnemy = 0;
     private List<Enemy> listEnemy;
 
     private int enemyToAdd;
@@ -28,7 +25,6 @@ class EnemyManager {
     EnemyManager(TowerDefenseView view) {
         this.view = view;
 
-        nbrEnemy = 0;
         listEnemy = new ArrayList<Enemy>();
     }
 
@@ -37,13 +33,12 @@ class EnemyManager {
     }
 
     void add_Enemy(){
-        int randomType = ThreadLocalRandom.current().nextInt(0, nbrType);
+        int randomType = ThreadLocalRandom.current().nextInt(0, enemyType.length);
 
         Enemy enemy;
         try {
             enemy = enemyType[randomType].clone();
             listEnemy.add(enemy);
-            nbrEnemy++;
         } catch (CloneNotSupportedException e) { throw new RuntimeException(e); }
 
         try {
@@ -73,7 +68,9 @@ class EnemyManager {
         }
         return damageSum;
     }
-    public boolean checkForWin(){ return (nbrEnemy == 0) && (enemyToAdd == 0); }
+    public boolean checkForWin(){
+        return (listEnemy.size() == 0) && (enemyToAdd == 0);
+    }
 
     public void update(){
         if(enemyToAdd > 0){
@@ -89,5 +86,9 @@ class EnemyManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void reset(){
+        listEnemy.clear();
     }
 }

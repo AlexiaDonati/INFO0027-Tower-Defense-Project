@@ -50,4 +50,8 @@ public class Base {
 
         }
     }
+
+    public void reset(){
+        health = 100;
+    }
 }
