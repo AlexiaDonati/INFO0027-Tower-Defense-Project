@@ -41,17 +41,13 @@ abstract class Tower extends ArmedEntity implements Observer{
         }
     }
 
-    public void update(){
-
-    }
-
     abstract void power();
 }
 
 class Tower1 extends Tower {
     Tower1() {
         sprite = new ImageIcon("../resources/towers/tower1.png");
-        range = 6;
+        range = 4;
         damage = 5;
         rate = 1;
 
@@ -72,8 +68,11 @@ class Tower1 extends Tower {
 class Tower2 extends Tower {
     Tower2() {
         sprite = new ImageIcon("../resources/towers/tower2.png");
+        range = 3;
+        damage = 10;
+        rate = 2;
 
-        cost = 110;
+        cost = 35;
         unlock = 1;
         // TODO set variables to the right start values
     }
