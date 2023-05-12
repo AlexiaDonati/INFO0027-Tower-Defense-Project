@@ -19,12 +19,19 @@ abstract class CellSubject{
     }
 }
 
-public class Cell{
+public class Cell extends CellSubject{
     private List<ArmedEntity> entities;
+    private int x, y;
 
-    public Cell(){
+    public Cell(int x, int y){
         entities = new ArrayList<>();
+        this.x = x;
+        this.y = y;
     }
+
+    public int get_x(){ return x; }
+
+    public int get_y(){ return y; }
 
     public void add_Entity(ArmedEntity e){
         entities.add(e);

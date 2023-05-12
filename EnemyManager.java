@@ -13,14 +13,7 @@ class EnemyManager {
 
     private int enemyToAdd;
 
-    private static final int[][] path = {{1, 0},
-            {1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {1, 7},
-            {2, 7}, {3, 7}, {4, 7},
-            {4, 6}, {4, 5}, {4, 4}, {4, 3}, {4, 2}, {4, 1},
-            {5, 1}, {6, 1}, {7, 1},
-            {7, 2}, {7, 3}, {7, 4}, {7, 5}, {7, 6}, {7, 7},
-            {8, 7}, {9, 7}, {10, 7},
-            {10, 6}, {10, 5}, {10, 4}, {10, 3}, {10, 2}};
+
 
     EnemyManager(TowerDefenseView view) {
         this.view = view;
@@ -79,7 +72,7 @@ class EnemyManager {
         }
 
         for(Enemy a : listEnemy){
-            a.advance(path);
+            a.advance();
             try {
                 view.updateAttackerField(a.get_position(), a.get_health(), a.get_sprite(), a.get_angle());
             } catch (WrongAttackerPositionException | EmptySpriteException e) {

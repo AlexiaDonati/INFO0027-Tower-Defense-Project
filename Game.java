@@ -7,23 +7,14 @@ import graphics.exceptions.*;
 import java.io.IOException;
 
 public class Game implements TowerDefenseEventsHandlerInterface {
-    static final int fps = 30;
+    private static final int fps = 30;
     private GameState state;
     private TowerDefenseView view;
+    private static final Map map = Map.get_Map();
 
     private static final Base base = Base.get_Base();
     private TowerManager towerManager;
     private EnemyManager enemyManager;
-
-    private static final int[][] map = {{0,1,0,0,0,0,0,0,0,0,0,0},
-                                        {0,1,0,0,1,1,1,1,0,0,2,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,1,1,1,0,0,1,1,1,1,0},
-                                        {0,0,0,0,0,0,0,0,0,0,0,0}};
 
     int currLevel;
     int currFrame;
@@ -79,7 +70,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     }
 
     public void add_Tower(int x, int y, int towerIndex) {
-        if(map[y][x] != 0){
+        if(Map.map[y][x] != 0){
             System.out.print("You can't add a new tower on the enemies path.\n");
             return;
         }

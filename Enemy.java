@@ -18,26 +18,32 @@ abstract class Enemy extends ArmedEntity{
 
     public int get_health(){ return health; }
 
-    public void advance(int[][] path){
+    public void advance(){
         int[] currPosition = {(int) get_position().getX(), (int) get_position().getY()};
+        Cell currCell = Map.path.get((int) distance);
 
-        int maxDistance = path.length-1;
+        int maxDistance = Map.path.size()-1;
         if(distance >= maxDistance){ return; } // The enemy is already at his maximum distance.
-        else if(distance + speed >= maxDistance){ distance = maxDistance; } // The enemy is almost at his maximum distance.
-        else{ distance += speed; } // The enemy is not at or almost at his maximum distance.
-
-        int[] newPosition = path[(int) distance];
-        if(distance != (int) distance){
-            newPosition[0] += path[(int) distance + 1][0] - newPosition[0];
-            newPosition[1] += path[(int) distance + 1][1] - newPosition[1];
+        else if(distance + speed >= maxDistance){ // The enemy is almost at his maximum distance.
+            currCell.remove_Entity(this);
+            distance = maxDistance;
         }
-        set_position(newPosition[0], newPosition[1]);
+        else{ // The enemy is not at or almost at his maximum distance.
+            currCell.remove_Entity(this);
+            distance += speed;
+        }
 
-        if(newPosition[0] > currPosition[0]){ angle = 0; }
-        else if(newPosition[0] < currPosition[0]){ angle = 180; }
+        int newX = Map.path.get((int) distance).get_x();
+        int newY = Map.path.get((int) distance).get_y();
+        set_position(newX, newY);
+
+        Map.path.get((int) distance).add_Entity(this);
+
+        if(newX > currPosition[0]){ angle = 0; }
+        else if(newX < currPosition[0]){ angle = 180; }
         else{
-            if(newPosition[1] > currPosition[1]){ angle = 90; }
-            else if(newPosition[1] < currPosition[1]){ angle = 270; }
+            if(newY > currPosition[1]){ angle = 90; }
+            else if(newY < currPosition[1]){ angle = 270; }
         }
     }
 }
