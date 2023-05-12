@@ -117,7 +117,6 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             towerManager.update();
 
             reward = enemyManager.update();
-            System.out.printf("reward : %f and budget : %f%n", reward, budget);
             budget += reward;
             view.updateMoney(budget);
             if(enemyManager.checkForWin()){
