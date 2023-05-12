@@ -109,13 +109,17 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     public void update(){
         if(currFrame % 30 == 0){
             int currTime = currFrame/30;
+            float reward = 0;
 
             view.refreshWindow();
 
             towerManager.try_to_hit(enemyManager, currTime);
             towerManager.update();
 
-            enemyManager.update();
+            reward = enemyManager.update();
+            System.out.printf("reward : %f and budget : %f%n", reward, budget);
+            budget += reward;
+            view.updateMoney(budget);
             if(enemyManager.checkForWin()){
                 state = new PlacingState();
             }

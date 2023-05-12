@@ -18,6 +18,8 @@ abstract class Enemy extends ArmedEntity{
 
     public int get_health(){ return health; }
 
+    public int get_reward(){ return reward; }
+
     public void advance(){
         int[] currPosition = {(int) get_position().getX(), (int) get_position().getY()};
         Cell currCell = Map.get_Cell((int) distance);

@@ -52,7 +52,7 @@ class EnemyManager {
         return (listEnemy.size() == 0) && (enemyToAdd == 0);
     }
 
-    public void update(){
+    public float update(){
         if(enemyToAdd > 0){
             add_Enemy();
             enemyToAdd--;
@@ -61,8 +61,10 @@ class EnemyManager {
         List<Enemy> listTemp = new ArrayList<Enemy>(listEnemy);
         for(Enemy enemy : listTemp){
             if(enemy.get_health() <= 0){
+                int money = enemy.get_reward();
                 enemy.remove();
                 listEnemy.remove(enemy);
+                return money;
             }
             else{
                 enemy.advance();
@@ -73,6 +75,7 @@ class EnemyManager {
                 }
             }
         }
+        return 0;
     }
 
     public void reset(){
