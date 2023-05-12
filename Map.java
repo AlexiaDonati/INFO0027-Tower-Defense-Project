@@ -20,7 +20,7 @@ public class Map {
                                                  {7, 2}, {7, 3}, {7, 4}, {7, 5}, {7, 6}, {7, 7},
                                                  {8, 7}, {9, 7}, {10, 7},
                                                  {10, 6}, {10, 5}, {10, 4}, {10, 3}, {10, 2}};
-    public static List<Cell> path;
+    private static List<Cell> path;
 
     private Map(){
         path = new ArrayList<>(pathPosition.length);
@@ -37,5 +37,13 @@ public class Map {
             INSTANCE = new Map();
         }
         return INSTANCE;
+    }
+
+    public static Cell get_Cell(int distance){
+        return path.get(distance);
+    }
+
+    public static int get_maxDistance(){
+        return path.size() - 1;
     }
 }

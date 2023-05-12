@@ -20,9 +20,9 @@ abstract class Enemy extends ArmedEntity{
 
     public void advance(){
         int[] currPosition = {(int) get_position().getX(), (int) get_position().getY()};
-        Cell currCell = Map.path.get((int) distance);
+        Cell currCell = Map.get_Cell((int) distance);
 
-        int maxDistance = Map.path.size()-1;
+        int maxDistance = Map.get_maxDistance();
         if(distance >= maxDistance){ return; } // The enemy is already at his maximum distance.
         else if(distance + speed >= maxDistance){ // The enemy is almost at his maximum distance.
             currCell.remove_Entity(this);
@@ -33,11 +33,11 @@ abstract class Enemy extends ArmedEntity{
             distance += speed;
         }
 
-        int newX = Map.path.get((int) distance).get_x();
-        int newY = Map.path.get((int) distance).get_y();
+        int newX = Map.get_Cell((int) distance).get_x();
+        int newY = Map.get_Cell((int) distance).get_y();
         set_position(newX, newY);
 
-        Map.path.get((int) distance).add_Entity(this);
+        Map.get_Cell((int) distance).add_Entity(this);
 
         if(newX > currPosition[0]){ angle = 0; }
         else if(newX < currPosition[0]){ angle = 180; }
