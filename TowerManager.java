@@ -71,4 +71,7 @@ public class TowerManager {
         }
     }
 
+    public void reset(){
+        listTower.clear();
+    }
 }

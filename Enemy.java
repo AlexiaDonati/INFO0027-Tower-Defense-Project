@@ -46,6 +46,12 @@ abstract class Enemy extends ArmedEntity{
             else if(newY < currPosition[1]){ angle = 270; }
         }
     }
+
+    public void remove(){
+        Cell currCell = Map.get_Cell((int) distance);
+        currCell.remove_Entity(this);
+    }
+
 }
 
 class Enemy1 extends Enemy {

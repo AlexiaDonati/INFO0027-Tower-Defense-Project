@@ -53,19 +53,24 @@ class EnemyManager {
     }
 
     public void update(){
-        listEnemy.removeIf(enemy -> enemy.get_health() <= 0);
-
         if(enemyToAdd > 0){
             add_Enemy();
             enemyToAdd--;
         }
 
-        for(Enemy a : listEnemy) {
-            a.advance();
-            try {
-                view.updateAttackerField(a.get_position(), a.get_health(), a.get_sprite(), a.get_angle());
-            } catch (WrongAttackerPositionException | EmptySpriteException e) {
-                e.printStackTrace();
+        List<Enemy> listTemp = new ArrayList<Enemy>(listEnemy);
+        for(Enemy enemy : listTemp){
+            if(enemy.get_health() <= 0){
+                enemy.remove();
+                listEnemy.remove(enemy);
+            }
+            else{
+                enemy.advance();
+                try {
+                    view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());
+                } catch (WrongAttackerPositionException | EmptySpriteException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

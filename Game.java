@@ -61,7 +61,9 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         budget = startBudget;
         view.updateMoney(budget);
 
+        towerManager.reset();
         enemyManager.reset();
+        map.reset();
     }
 
     @Override

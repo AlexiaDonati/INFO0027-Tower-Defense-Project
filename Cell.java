@@ -11,12 +11,6 @@ abstract class CellSubject{
     public void detach_Observer(Observer o){
         observers.remove(o);
     }
-
-    public void notify_observers(){
-        for(Observer o : observers){
-            o.update();
-        }
-    }
 }
 
 public class Cell extends CellSubject{
@@ -43,5 +37,10 @@ public class Cell extends CellSubject{
 
     public List<ArmedEntity> give_update(){
         return entities;
+    }
+
+    public void reset(){
+        entities.clear();
+        observers.clear();
     }
 }

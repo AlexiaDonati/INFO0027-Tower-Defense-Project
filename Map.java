@@ -46,4 +46,10 @@ public class Map {
     public static int get_maxDistance(){
         return path.size() - 1;
     }
+
+    public static void reset(){
+        for(Cell c : path){
+            c.reset();
+        }
+    }
 }
