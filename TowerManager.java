@@ -55,7 +55,7 @@ public class TowerManager {
     public void try_to_hit(EnemyManager enemyManager, int currTime){
         for (Tower tower : listTower){
             if(tower.can_fire(currTime)){
-                enemyManager.get_hit(tower);
+                tower.action();
             }
         }
     }

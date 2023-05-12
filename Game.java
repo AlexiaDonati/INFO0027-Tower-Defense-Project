@@ -112,11 +112,12 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
             towerManager.try_to_hit(enemyManager, currTime);
             towerManager.update();
+
+            enemyManager.update();
             if(enemyManager.checkForWin()){
                 state = new PlacingState();
             }
 
-            enemyManager.update();
             int damage = enemyManager.try_to_hit(base.x, base.y, currTime);
             if(!base.try_to_hit(damage)){
                 gameOver();

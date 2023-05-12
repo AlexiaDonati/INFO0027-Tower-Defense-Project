@@ -41,19 +41,6 @@ class EnemyManager {
         }
     }
 
-    public void get_hit(Tower tower){
-        for(Enemy enemy : listEnemy){
-
-            Point2D position = enemy.get_position();
-            if(tower.can_reach((int) position.getX(), (int) position.getY())){
-                if(enemy.hit(tower.get_damage()) <= 0){
-                    listEnemy.remove(enemy);
-                }
-                break;
-            }
-        }
-    }
-
     public int try_to_hit(int x, int y, int currTime){
         int damageSum = 0;
         for (Enemy enemy : listEnemy){
@@ -66,12 +53,14 @@ class EnemyManager {
     }
 
     public void update(){
+        listEnemy.removeIf(enemy -> enemy.get_health() <= 0);
+
         if(enemyToAdd > 0){
             add_Enemy();
             enemyToAdd--;
         }
 
-        for(Enemy a : listEnemy){
+        for(Enemy a : listEnemy) {
             a.advance();
             try {
                 view.updateAttackerField(a.get_position(), a.get_health(), a.get_sprite(), a.get_angle());

@@ -1,14 +1,13 @@
-import graphics.exceptions.EmptySpriteException;
-import graphics.exceptions.WrongAttackerPositionException;
-
 import javax.swing.*;
-import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 
-abstract class Tower extends ArmedEntity{
+abstract class Tower extends ArmedEntity implements Observer{
     protected int cost;
     protected int unlock;
     protected int decay;
+
+    protected List<Cell> inRange = new ArrayList<>();
 
     @Override
     public Tower clone() throws CloneNotSupportedException {
@@ -18,6 +17,33 @@ abstract class Tower extends ArmedEntity{
     public int get_cost(){ return cost; }
 
     public int get_unlock(){ return unlock; }
+
+    @Override
+    public void set_position(int x, int y){
+        super.set_position(x, y);
+
+        for(int i = Map.get_maxDistance() ; i >= 0 ; i--){
+            Cell c = Map.get_Cell(i);
+            if(can_reach(c.get_x(), c.get_y())){
+                inRange.add(c);
+                c.attach_Observer(this);
+            }
+        }
+    }
+
+    public void action(){
+        for(Cell c : inRange){
+            List<ArmedEntity> enemies = c.give_update();
+            if(!enemies.isEmpty()){
+                enemies.get(0).hit(damage);
+                break;
+            }
+        }
+    }
+
+    public void update(){
+
+    }
 
     abstract void power();
 }
@@ -36,13 +62,6 @@ class Tower1 extends Tower {
     @Override
     public Tower clone() throws CloneNotSupportedException {
         return super.clone();
-    }
-
-    public void try_to_hit(List<Enemy> listEnemy, int currTime){
-        if(!can_fire(currTime)){
-            return;
-        }
-
     }
 
     public void power(){
