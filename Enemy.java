@@ -88,7 +88,6 @@ class Enemy2 extends Enemy {
         reward = 20;
         health = 15;
         speed = 1;
-        // TODO set variables to the right start values
     }
 
     @Override

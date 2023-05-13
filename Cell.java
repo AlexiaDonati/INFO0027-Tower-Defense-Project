@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 abstract class CellSubject{
-    protected List<Observer> observers = new ArrayList<>();
+    private List<Observer> observers = new ArrayList<>();
 
     public void attach_Observer(Observer o){
         observers.add(o);
@@ -11,6 +11,8 @@ abstract class CellSubject{
     public void detach_Observer(Observer o){
         observers.remove(o);
     }
+
+    protected void reset(){ observers.clear(); }
 }
 
 public class Cell extends CellSubject{
@@ -40,7 +42,7 @@ public class Cell extends CellSubject{
     }
 
     public void reset(){
+        super.reset();
         entities.clear();
-        observers.clear();
     }
 }
