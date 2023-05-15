@@ -69,6 +69,7 @@ class EnemyManager {
             }
             else{
                 enemy.advance();
+                enemy.handle_effect();
                 try {
                     view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());
                 } catch (WrongAttackerPositionException | EmptySpriteException e) {

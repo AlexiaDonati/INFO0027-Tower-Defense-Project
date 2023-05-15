@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.geom.Point2D;
 
-public class ArmedEntity implements Cloneable{
+public abstract class ArmedEntity implements Cloneable{
     protected ImageIcon sprite;
 
     private Point2D position;
@@ -58,4 +58,7 @@ public class ArmedEntity implements Cloneable{
         health -= damage;
         return health;
     }
+
+    public abstract void apply_ability(String ability);
+
 }
