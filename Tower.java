@@ -53,6 +53,7 @@ class Tower1 extends Tower {
 
         cost = 15;
         unlock = 0;
+        decay = 1;
     }
 
     @Override
@@ -73,8 +74,8 @@ class Tower2 extends Tower {
         rate = 2;
 
         cost = 35;
-        unlock = 1;
-        // TODO set variables to the right start values
+        unlock = 2;
+        decay = 3;
     }
 
     @Override
