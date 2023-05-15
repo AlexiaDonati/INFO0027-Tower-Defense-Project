@@ -76,13 +76,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     }
 
     public void add_Tower(int x, int y, int towerIndex) {
-        if(Map.map[y][x] != 0){
-            System.out.print("You can't add a new tower on the enemies path.\n");
+        if(!map.is_cell_empty(x, y)){
+            System.out.print("You can't add a new tower there.\n");
             return;
         }
 
         if(budget - towerManager.get_cost(towerIndex-1) >= 0){
             towerManager.add_Tower(x, y, towerIndex-1);
+            map.add_tower(x, y);
+
             budget -= towerManager.get_cost(towerIndex-1);
             view.updateMoney(budget);
         }

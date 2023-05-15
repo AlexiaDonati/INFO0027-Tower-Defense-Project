@@ -2,15 +2,15 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Map {
-    public static final int[][] map = {{0,1,0,0,0,0,0,0,0,0,0,0},
-                                        {0,1,0,0,1,1,1,1,0,0,2,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,0,0,1,0,0,1,0,0,1,0},
-                                        {0,1,1,1,1,0,0,1,1,1,1,0},
-                                        {0,0,0,0,0,0,0,0,0,0,0,0}};
+    private static int[][] map = {{0,1,0,0,0,0,0,0,0,0,0,0},
+                                  {0,1,0,0,1,1,1,1,0,0,2,0},
+                                  {0,1,0,0,1,0,0,1,0,0,1,0},
+                                  {0,1,0,0,1,0,0,1,0,0,1,0},
+                                  {0,1,0,0,1,0,0,1,0,0,1,0},
+                                  {0,1,0,0,1,0,0,1,0,0,1,0},
+                                  {0,1,0,0,1,0,0,1,0,0,1,0},
+                                  {0,1,1,1,1,0,0,1,1,1,1,0},
+                                  {0,0,0,0,0,0,0,0,0,0,0,0}};
 
     private static final int[][] pathPosition = {{1, 0},
                                                  {1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {1, 7},
@@ -37,6 +37,18 @@ public class Map {
             INSTANCE = new Map();
         }
         return INSTANCE;
+    }
+
+    public static boolean is_cell_empty(int x, int y){
+        return (map[y][x] == 0);
+    }
+
+    public static void add_tower(int x, int y){
+        map[y][x] = 2;
+    }
+
+    public static void remove_tower(int x, int y){
+        map[y][x] = 0;
     }
 
     public static Cell get_Cell(int distance){
