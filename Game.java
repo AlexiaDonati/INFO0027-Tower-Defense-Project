@@ -16,8 +16,8 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     private TowerManager towerManager;
     private EnemyManager enemyManager;
 
-    int currLevel;
-    int currFrame;
+    private int currLevel;
+    private int currFrame;
 
     static final float startBudget = 50;
     private float budget;
@@ -47,11 +47,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         this.state = state;
     }
 
+    public void next_level(){ currLevel++; }
+
+    public int get_level(){ return currLevel; }
+
     @Override
     public void startNewGame() {
         state = new PlacingState();
 
-        currLevel = 0;
+        currLevel = 1;
 
         view.refreshWindow();
 
@@ -89,21 +93,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
     @Override
     public void launchWave() {
-        state.launchWave(this);
-    }
-
-    public void init_Wave(){
-        currLevel++;
-
-        enemyManager.launch_wave(currLevel);
-
-        try {
-            towerManager.unlock(currLevel);
-        } catch (UnknownTowerException e) {
-            throw new RuntimeException(e);
-        }
-
-        currFrame = 0;
+        state.launchWave(enemyManager, this);
     }
 
     public void update(){
@@ -113,17 +103,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
             view.refreshWindow();
 
-            towerManager.try_to_hit(enemyManager, currTime);
-            towerManager.update();
+            towerManager.update(currTime);
 
-            reward = enemyManager.update();
-            budget += reward;
+            budget += enemyManager.update();
             view.updateMoney(budget);
             if(enemyManager.checkForWin()){
-                state = new PlacingState();
+                state.stopWave(towerManager, this);
             }
 
-            int damage = enemyManager.try_to_hit(base.x, base.y, currTime);
+            int damage = enemyManager.try_to_hit(base.getX(), base.getY(), currTime);
             if(!base.try_to_hit(damage)){
                 gameOver();
             }

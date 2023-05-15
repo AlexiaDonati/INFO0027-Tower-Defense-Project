@@ -1,14 +1,30 @@
+import graphics.exceptions.UnknownTowerException;
+
 public interface GameState {
-    void launchWave(Game game);
+    void launchWave(EnemyManager enemyManager, Game game);
+    void stopWave(TowerManager towerManager, Game game);
     void play(Game game);
     void moveTowerToField(int x, int y, int towerIndex, Game game);
 }
 
 class PlayingState implements GameState {
 
-    public void launchWave(Game game) {
+    public void launchWave(EnemyManager enemyManager, Game game) {
         System.out.print("You can't launch a new wave while one is still ongoing.\n");
     }
+
+    public void stopWave(TowerManager towerManager, Game game){
+        game.set_state(new PlacingState());
+
+        game.next_level();
+        towerManager.check_for_decay();
+        try {
+            towerManager.unlock(game.get_level());
+        } catch (UnknownTowerException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void play(Game game){
         game.update();
     }
@@ -19,10 +35,13 @@ class PlayingState implements GameState {
 }
 
 class PlacingState implements GameState {
-    public void launchWave(Game game){
+
+    public void launchWave(EnemyManager enemyManager, Game game){
         game.set_state(new PlayingState());
-        game.init_Wave();
+        enemyManager.launch_wave(game.get_level());
     }
+
+    public void stopWave(TowerManager towerManager, Game game){ }
 
     public void play(Game game){ }
 

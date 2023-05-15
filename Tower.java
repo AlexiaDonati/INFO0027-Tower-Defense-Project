@@ -7,6 +7,7 @@ abstract class Tower extends ArmedEntity implements Observer{
     protected int unlock;
     protected int decay;
     protected Power ability;
+    private boolean hitAnEnemy;
 
     protected List<Cell> inRange = new ArrayList<>();
 
@@ -38,12 +39,41 @@ abstract class Tower extends ArmedEntity implements Observer{
             if(!enemies.isEmpty()){
                 enemies.get(0).hit(damage);
                 enemies.get(0).apply_ability((this.ability).toString());
+                hitAnEnemy = true;
                 break;
             }
         }
     }
 
     public void apply_ability(String ability){}
+
+    protected void reset_hitAnEnemy(){
+        hitAnEnemy = false;
+    }
+
+    public boolean check_for_decay(){
+        if(hitAnEnemy == false){
+            decay--;
+        }
+        else{
+            reset_hitAnEnemy();
+        }
+
+        if(decay <= 0){
+            remove();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private void remove(){
+        for(Cell c : inRange){
+            c.detach_Observer(this);
+        }
+
+    }
 }
 
 enum Power{
@@ -63,6 +93,9 @@ class Tower1 extends Tower {
         cost = 15;
         unlock = 0;
         ability = Power.NORMAL;
+
+        decay = 1;
+        reset_hitAnEnemy();
     }
 
     @Override
@@ -81,6 +114,9 @@ class Tower2 extends Tower {
         cost = 35;
         unlock = 1;
         ability = Power.SLOW;
+
+        decay = 2;
+        reset_hitAnEnemy();
     }
 
     @Override
@@ -99,6 +135,9 @@ class Tower3 extends Tower {
         cost = 35;
         unlock = 2;
         ability = Power.POISON;
+
+        decay = 2;
+        reset_hitAnEnemy();
     }
 
     @Override
@@ -118,6 +157,9 @@ class Tower4 extends Tower {
         cost = 35;
         unlock = 3;
         ability = Power.STUN;
+
+        decay = 1;
+        reset_hitAnEnemy();
     }
 
     @Override

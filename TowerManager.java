@@ -51,22 +51,26 @@ public class TowerManager {
             e.printStackTrace();
         }
     }
-
-    public void try_to_hit(EnemyManager enemyManager, int currTime){
-        for (Tower tower : listTower){
+    public void update(int currTime){
+        for(Tower tower : listTower){
             if(tower.can_fire(currTime)){
                 tower.action();
+            }
+
+            Point2D pos = tower.get_position();
+            try {
+                view.updateTowerField((int) pos.getX(), (int) pos.getY(), tower.get_sprite(), 0);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
-    public void update(){
-        for(Tower t : listTower){
-            Point2D pos = t.get_position();
-            try {
-                view.updateTowerField((int) pos.getX(), (int) pos.getY(), t.get_sprite(), 0);
-            } catch (WrongTowerPositionException | EmptySpriteException e) {
-                e.printStackTrace();
+    public void check_for_decay(){
+        List<Tower> listTemp = new ArrayList<Tower>(listTower);
+        for(Tower tower : listTemp){
+            if(tower.check_for_decay()){
+                listTower.remove(tower);
             }
         }
     }

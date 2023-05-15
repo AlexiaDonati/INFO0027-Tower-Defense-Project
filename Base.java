@@ -4,8 +4,8 @@ import graphics.exceptions.*;
 import javax.swing.*;
 
 public class Base {
-    public static final int x = 10;
-    public static final int y = 1;
+    private static final int x = 10;
+    private static final int y = 1;
 
     private int health;
     private static final int healingRate = 5;
@@ -24,6 +24,10 @@ public class Base {
         }
         return INSTANCE;
     }
+
+    public int getX(){ return x; }
+
+    public int getY(){ return y; }
 
     public void update(TowerDefenseView view){
         try{
