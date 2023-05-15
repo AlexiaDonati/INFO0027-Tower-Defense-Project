@@ -6,6 +6,7 @@ abstract class Tower extends ArmedEntity implements Observer{
     protected int cost;
     protected int unlock;
     protected int decay;
+    protected Power ability;
 
     protected List<Cell> inRange = new ArrayList<>();
 
@@ -36,12 +37,20 @@ abstract class Tower extends ArmedEntity implements Observer{
             List<ArmedEntity> enemies = c.give_update();
             if(!enemies.isEmpty()){
                 enemies.get(0).hit(damage);
+                enemies.get(0).apply_ability((this.ability).toString());
                 break;
             }
         }
     }
 
-    abstract void power();
+    public void apply_ability(String ability){}
+}
+
+enum Power{
+    NORMAL,
+    STUN,
+    POISON,
+    SLOW;
 }
 
 class Tower1 extends Tower {
@@ -53,15 +62,12 @@ class Tower1 extends Tower {
 
         cost = 15;
         unlock = 0;
+        ability = Power.NORMAL;
     }
 
     @Override
     public Tower clone() throws CloneNotSupportedException {
         return super.clone();
-    }
-
-    public void power(){
-        // TODO implement power
     }
 }
 
@@ -74,23 +80,25 @@ class Tower2 extends Tower {
 
         cost = 35;
         unlock = 1;
-        // TODO set variables to the right start values
+        ability = Power.SLOW;
     }
 
     @Override
     public Tower clone() throws CloneNotSupportedException {
         return super.clone();
-    }
-
-    public void power(){
-        // TODO implement power
     }
 }
 
 class Tower3 extends Tower {
     Tower3() {
         sprite = new ImageIcon("../resources/towers/tower3.png");
-        // TODO set variables to the right start values
+        range = 3;
+        damage = 10;
+        rate = 2;
+
+        cost = 35;
+        unlock = 2;
+        ability = Power.POISON;
     }
 
     @Override
@@ -98,23 +106,22 @@ class Tower3 extends Tower {
         return super.clone();
     }
 
-    public void power(){
-        // TODO implement power
-    }
 }
 
 class Tower4 extends Tower {
     Tower4() {
         sprite = new ImageIcon("../resources/towers/tower4.png");
-        // TODO set variables to the right start values
+        range = 3;
+        damage = 10;
+        rate = 2;
+
+        cost = 35;
+        unlock = 3;
+        ability = Power.STUN;
     }
 
     @Override
     public Tower clone() throws CloneNotSupportedException {
         return super.clone();
-    }
-
-    public void power(){
-        // TODO implement power
     }
 }
