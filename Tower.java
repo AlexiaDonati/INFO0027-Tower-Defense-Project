@@ -41,6 +41,23 @@ abstract class Tower extends ArmedEntity implements Observer{
         }
     }
 
+    public boolean check_for_decay(){
+        decay--;
+        if(decay <= 0){
+            remove();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private void remove(){
+        for(Cell c : inRange){
+            c.detach_Observer(this);
+        }
+
+    }
     abstract void power();
 }
 

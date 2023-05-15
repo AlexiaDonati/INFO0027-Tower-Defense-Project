@@ -66,6 +66,15 @@ public class TowerManager {
         }
     }
 
+    public void check_for_decay(){
+        List<Tower> listTemp = new ArrayList<Tower>(listTower);
+        for(Tower tower : listTemp){
+            if(tower.check_for_decay()){
+                listTower.remove(tower);
+            }
+        }
+    }
+
     public void reset(){
         listTower.clear();
     }

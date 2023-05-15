@@ -17,8 +17,7 @@ class PlayingState implements GameState {
         game.set_state(new PlacingState());
 
         game.next_level();
-
-        System.out.print(game.get_level());
+        towerManager.check_for_decay();
         try {
             towerManager.unlock(game.get_level());
         } catch (UnknownTowerException e) {
