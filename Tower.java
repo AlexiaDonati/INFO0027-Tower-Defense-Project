@@ -6,6 +6,7 @@ abstract class Tower extends ArmedEntity implements Observer{
     protected int cost;
     protected int unlock;
     protected int decay;
+    private boolean hitAnEnemy;
 
     protected List<Cell> inRange = new ArrayList<>();
 
@@ -36,13 +37,24 @@ abstract class Tower extends ArmedEntity implements Observer{
             List<ArmedEntity> enemies = c.give_update();
             if(!enemies.isEmpty()){
                 enemies.get(0).hit(damage);
+                hitAnEnemy = true;
                 break;
             }
         }
     }
 
+    protected void reset_hitAnEnemy(){
+        hitAnEnemy = false;
+    }
+
     public boolean check_for_decay(){
-        decay--;
+        if(hitAnEnemy == false){
+            decay--;
+        }
+        else{
+            reset_hitAnEnemy();
+        }
+
         if(decay <= 0){
             remove();
             return true;
@@ -71,6 +83,7 @@ class Tower1 extends Tower {
         cost = 15;
         unlock = 0;
         decay = 1;
+        reset_hitAnEnemy();
     }
 
     @Override
@@ -92,7 +105,8 @@ class Tower2 extends Tower {
 
         cost = 35;
         unlock = 2;
-        decay = 3;
+        decay = 2;
+        reset_hitAnEnemy();
     }
 
     @Override
@@ -109,6 +123,8 @@ class Tower3 extends Tower {
     Tower3() {
         sprite = new ImageIcon("../resources/towers/tower3.png");
         // TODO set variables to the right start values
+        decay = 2;
+        reset_hitAnEnemy();
     }
 
     @Override
@@ -124,7 +140,9 @@ class Tower3 extends Tower {
 class Tower4 extends Tower {
     Tower4() {
         sprite = new ImageIcon("../resources/towers/tower4.png");
+        decay = 1;
         // TODO set variables to the right start values
+        reset_hitAnEnemy();
     }
 
     @Override
