@@ -71,7 +71,7 @@ abstract class Tower extends ArmedEntity implements Observer{
     }
 
     private void remove(){
-        Map.remove_tower((int) get_position().getX(), (int) get_position().getY());
+        Map.remove_tower(get_X(), get_Y());
         for(Cell c : inRange){
             c.detach_Observer(this);
         }

@@ -33,6 +33,14 @@ public abstract class ArmedEntity implements Cloneable{
         return position;
     }
 
+    public int get_X(){
+        return (int) position.getX();
+    }
+
+    public int get_Y(){
+        return (int) position.getY();
+    }
+
     public int get_angle(){
         return angle;
     }
@@ -45,7 +53,9 @@ public abstract class ArmedEntity implements Cloneable{
         return range >= position.distance(x, y);
     }
 
-    public boolean can_fire(int currTime){ return currTime % rate == 0; }
+    public boolean can_fire(int currTime){ 
+        return currTime % rate == 0; 
+    }
 
     public int try_to_hit(int x, int y, int currTime){
         if(can_reach(x, y) && can_fire(currTime)){

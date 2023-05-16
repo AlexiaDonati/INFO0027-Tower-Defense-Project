@@ -2,7 +2,6 @@ import graphics.TowerDefenseView;
 import graphics.exceptions.*;
 
 import javax.swing.*;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,9 +51,8 @@ public class TowerManager {
                 tower.action();
             }
 
-            Point2D pos = tower.get_position();
             try {
-                view.updateTowerField((int) pos.getX(), (int) pos.getY(), tower.get_sprite(), 0);
+                view.updateTowerField(tower.get_X(), tower.get_Y(), tower.get_sprite(), 0);
             } catch (Exception e) {
                 e.printStackTrace();
             }
