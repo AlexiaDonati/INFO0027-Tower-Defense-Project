@@ -9,16 +9,12 @@ import java.util.List;
 public class TowerManager {
     private TowerDefenseView view;
 
-    static final int nbrType = 4;
     private Tower[] towerType = {new Tower1(), new Tower2(), new Tower3(), new Tower4()};
-
-    private int nbrTower;
     private List<Tower> listTower;
 
     TowerManager(TowerDefenseView view) {
         this.view = view;
 
-        nbrTower = 0;
         listTower = new ArrayList<Tower>();
     }
 
@@ -27,7 +23,7 @@ public class TowerManager {
     public ImageIcon get_sprite(int towerIndex){ return towerType[towerIndex].get_sprite(); }
 
     void unlock(int currLevel) throws UnknownTowerException {
-        for(int i = 0 ; i < nbrType ; i++){
+        for(int i = 0 ; i < towerType.length ; i++){
             if(currLevel == towerType[i].get_unlock()){
                 view.unlockTower(i);
             }
@@ -40,7 +36,6 @@ public class TowerManager {
             newTower.set_position(x, y);
 
             listTower.add(newTower);
-            nbrTower++;
         } catch (CloneNotSupportedException e){
             e.printStackTrace();
         }
