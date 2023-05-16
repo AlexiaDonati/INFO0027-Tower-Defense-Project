@@ -9,17 +9,20 @@ abstract class Tower extends ArmedEntity implements Observer{
     protected int unlock;
     protected int decay;
     protected Power ability;
-    private boolean hitAnEnemy;
 
-    protected List<Cell> inRange = new ArrayList<>();
+    private boolean hitAnEnemy;
+    private List<Cell> inRange;
 
     Tower(){
+        inRange = new ArrayList<>();
         reset_hitAnEnemy();
     }
 
     @Override
     public Tower clone() throws CloneNotSupportedException {
-        return (Tower) super.clone();
+        Tower clone = (Tower) super.clone();
+        clone.inRange = new ArrayList<>(inRange);
+        return clone;
     }
 
     public int get_cost(){ return cost; }
@@ -60,18 +63,13 @@ abstract class Tower extends ArmedEntity implements Observer{
     public boolean check_for_decay(){
         if(hitAnEnemy == false){
             decay--;
+            if(decay <= 0){
+                remove();
+                return true;
+            }
         }
-        else{
-            reset_hitAnEnemy();
-        }
-
-        if(decay <= 0){
-            remove();
-            return true;
-        }
-        else{
-            return false;
-        }
+        reset_hitAnEnemy();
+        return false;
     }
 
     private void remove(){
@@ -92,6 +90,7 @@ enum Power{
 
 class Tower1 extends Tower {
     Tower1() {
+        super();
         sprite = new ImageIcon("../resources/towers/tower1.png");
         range = 2;
         damage = 5;
@@ -112,6 +111,7 @@ class Tower1 extends Tower {
 
 class Tower2 extends Tower {
     Tower2() {
+        super();
         sprite = new ImageIcon("../resources/towers/tower2.png");
         range = 2;
         damage = 10;
@@ -132,6 +132,7 @@ class Tower2 extends Tower {
 
 class Tower3 extends Tower {
     Tower3() {
+        super();
         sprite = new ImageIcon("../resources/towers/tower3.png");
         range = 3;
         damage = 5;
@@ -153,6 +154,7 @@ class Tower3 extends Tower {
 
 class Tower4 extends Tower {
     Tower4() {
+        super();
         sprite = new ImageIcon("../resources/towers/tower4.png");
         range = 2;
         damage = 20;
