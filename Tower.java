@@ -13,6 +13,10 @@ abstract class Tower extends ArmedEntity implements Observer{
 
     protected List<Cell> inRange = new ArrayList<>();
 
+    Tower(){
+        reset_hitAnEnemy();
+    }
+
     @Override
     public Tower clone() throws CloneNotSupportedException {
         return (Tower) super.clone();
@@ -98,7 +102,6 @@ class Tower1 extends Tower {
         ability = Power.NORMAL;
 
         decay = 1;
-        reset_hitAnEnemy();
     }
 
     @Override
@@ -119,7 +122,6 @@ class Tower2 extends Tower {
         ability = Power.SLOW;
 
         decay = 1;
-        reset_hitAnEnemy();
     }
 
     @Override
@@ -140,7 +142,6 @@ class Tower3 extends Tower {
         ability = Power.POISON;
 
         decay = 1;
-        reset_hitAnEnemy();
     }
 
     @Override
@@ -162,7 +163,6 @@ class Tower4 extends Tower {
         ability = Power.STUN;
 
         decay = 1;
-        reset_hitAnEnemy();
     }
 
     @Override

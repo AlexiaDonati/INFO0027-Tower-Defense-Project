@@ -16,11 +16,10 @@ class PlayingState implements GameState {
     public void stopWave(TowerManager towerManager, Game game){
         game.set_state(new PlacingState());
 
-        //game.next_level();
         towerManager.check_for_decay();
         try {
             towerManager.unlock(game.get_level());
-            game.next_level(); //added after otherwise we would skip level 1
+            game.next_level();
         } catch (UnknownTowerException e) {
             e.printStackTrace();
         }
