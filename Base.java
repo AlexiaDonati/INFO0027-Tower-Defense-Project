@@ -37,7 +37,7 @@ public class Base {
         }
     }
 
-    public boolean try_to_hit(int damage){
+    public boolean get_hit(int damage){
         health -= damage;
         if(health > 0){
             return true;

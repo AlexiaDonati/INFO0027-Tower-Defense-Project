@@ -114,7 +114,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             }
 
             int damage = enemyManager.try_to_hit(base.getX(), base.getY(), currTime);
-            if(!base.try_to_hit(damage)){
+            if(!base.get_hit(damage)){
                 gameOver();
             }
             base.action(currTime);
