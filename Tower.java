@@ -87,7 +87,7 @@ enum Power{
 class Tower1 extends Tower {
     Tower1() {
         sprite = new ImageIcon("../resources/towers/tower1.png");
-        range = 4;
+        range = 2;
         damage = 5;
         rate = 1;
 
@@ -108,7 +108,7 @@ class Tower1 extends Tower {
 class Tower2 extends Tower {
     Tower2() {
         sprite = new ImageIcon("../resources/towers/tower2.png");
-        range = 3;
+        range = 2;
         damage = 10;
         rate = 2;
 
@@ -116,7 +116,7 @@ class Tower2 extends Tower {
         unlock = 1;
         ability = Power.SLOW;
 
-        decay = 2;
+        decay = 1;
         reset_hitAnEnemy();
     }
 
@@ -130,14 +130,14 @@ class Tower3 extends Tower {
     Tower3() {
         sprite = new ImageIcon("../resources/towers/tower3.png");
         range = 3;
-        damage = 10;
-        rate = 2;
+        damage = 5;
+        rate = 3;
 
-        cost = 35;
+        cost = 50;
         unlock = 2;
         ability = Power.POISON;
 
-        decay = 2;
+        decay = 1;
         reset_hitAnEnemy();
     }
 
@@ -151,11 +151,11 @@ class Tower3 extends Tower {
 class Tower4 extends Tower {
     Tower4() {
         sprite = new ImageIcon("../resources/towers/tower4.png");
-        range = 3;
-        damage = 10;
-        rate = 2;
+        range = 2;
+        damage = 20;
+        rate = 1;
 
-        cost = 35;
+        cost = 75;
         unlock = 3;
         ability = Power.STUN;
 

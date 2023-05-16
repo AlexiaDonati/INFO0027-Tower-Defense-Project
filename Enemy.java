@@ -120,7 +120,7 @@ class Enemy1 extends Enemy {
         damage = 5;
         rate = 1;
 
-        reward = 10;
+        reward = 5;
         health = 5;
         speed = 2;
     }
@@ -140,7 +140,7 @@ class Enemy2 extends Enemy {
         damage = 15;
         rate = 2;
 
-        reward = 15;
+        reward = 10;
         health = 15;
         speed = 1;
     }
@@ -157,10 +157,10 @@ class Enemy3 extends Enemy {
         sprite = new ImageIcon("../resources/attackers/attacker3.png");
 
         range = 4;
-        damage = 20;
+        damage = 25;
         rate = 3;
 
-        reward = 20;
+        reward = 15;
         health = 20;
         speed = 1;
     }
@@ -181,7 +181,7 @@ class Enemy4 extends Enemy {
         rate = 5;
 
         reward = 25;
-        health = 30;
+        health = 50;
         speed = 0.5;
     }
 
