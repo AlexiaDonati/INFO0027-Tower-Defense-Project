@@ -12,14 +12,28 @@ public class TowerManager {
     private List<Tower> listTower;
 
     TowerManager(TowerDefenseView view) {
+        if(view == null){
+            throw new IllegalArgumentException("Invalid argument");
+        }
         this.view = view;
 
         listTower = new ArrayList<Tower>();
     }
 
-    public int get_cost(int towerIndex){ return towerType[towerIndex].get_cost(); }
+    public int get_cost(int towerIndex){ 
+        if(towerIndex < 0 || towerIndex >= towerType.length){
+            throw new IllegalArgumentException("Invalid tower index");
+        }
+        return towerType[towerIndex].get_cost(); 
+    }
 
-    public ImageIcon get_sprite(int towerIndex){ return towerType[towerIndex].get_sprite(); }
+    public ImageIcon get_sprite(int towerIndex){
+        if(towerIndex < 0 || towerIndex >= towerType.length){
+            throw new IllegalArgumentException("Invalid tower index");
+        }
+
+        return towerType[towerIndex].get_sprite(); 
+    }
 
     void unlock(int currLevel) throws UnknownTowerException {
         for(int i = 0 ; i < towerType.length ; i++){
@@ -30,18 +44,17 @@ public class TowerManager {
     }
 
     void add_Tower(int x, int y, int towerIndex){
-        try {
-            Tower newTower = towerType[towerIndex].clone();
-            newTower.set_position(x, y);
-
-            listTower.add(newTower);
-        } catch (CloneNotSupportedException e){
-            e.printStackTrace();
+        if(towerIndex < 0 || towerIndex >= towerType.length){
+            throw new IllegalArgumentException("Invalid tower index.");
         }
 
         try {
+            Tower newTower = towerType[towerIndex].clone();
+            newTower.set_position(x, y);
+            listTower.add(newTower);
+
             view.updateTowerField(x, y, get_sprite(towerIndex), 0);
-        } catch (WrongTowerPositionException | EmptySpriteException e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

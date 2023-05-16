@@ -2,6 +2,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Map {
+    private static final int width = 12;
+    private static final int height = 9;
+
     private static int[][] map = {{0,1,0,0,0,0,0,0,0,0,0,0},
                                   {0,1,0,0,1,1,1,1,0,0,2,0},
                                   {0,1,0,0,1,0,0,1,0,0,1,0},
@@ -48,6 +51,14 @@ public class Map {
 
     public static void remove_tower(int x, int y){
         map[y][x] = 0;
+    }
+
+    public static int get_width(){
+        return width;
+    }
+
+    public static int get_height(){
+        return height;
     }
 
     public static Cell get_Cell(int distance){

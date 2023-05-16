@@ -26,6 +26,10 @@ public abstract class ArmedEntity implements Cloneable{
     public ImageIcon get_sprite(){ return sprite; }
 
     public void set_position(int x, int y){
+        if(x < 0 || x >= Map.get_width() || y < 0 || y >= Map.get_height()){
+            throw new IllegalArgumentException("Position not inside the map boundary");
+        }
+
         position.setLocation(x, y);
     }
 

@@ -1,7 +1,4 @@
 import graphics.TowerDefenseView;
-import graphics.exceptions.*;
-
-import java.awt.geom.Point2D;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
@@ -13,9 +10,10 @@ class EnemyManager {
 
     private int enemyToAdd;
 
-
-
     EnemyManager(TowerDefenseView view) {
+        if(view == null){
+            throw new IllegalArgumentException("Invalid argument");
+        }
         this.view = view;
 
         listEnemy = new ArrayList<Enemy>();
@@ -28,15 +26,12 @@ class EnemyManager {
     void add_Enemy(){
         int randomType = ThreadLocalRandom.current().nextInt(0, enemyType.length);
 
-        Enemy enemy;
         try {
-            enemy = enemyType[randomType].clone();
+            Enemy enemy = enemyType[randomType].clone();
             listEnemy.add(enemy);
-        } catch (CloneNotSupportedException e) { throw new RuntimeException(e); }
 
-        try {
             view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());
-        } catch (WrongAttackerPositionException | EmptySpriteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -48,6 +43,7 @@ class EnemyManager {
         }
         return damageSum;
     }
+
     public boolean checkForWin(){
         return (listEnemy.size() == 0) && (enemyToAdd == 0);
     }
@@ -72,7 +68,7 @@ class EnemyManager {
                 enemy.handle_effect();
                 try {
                     view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());
-                } catch (WrongAttackerPositionException | EmptySpriteException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
