@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+interface Observer {}
+
 abstract class Tower extends ArmedEntity implements Observer{
     protected int cost;
     protected int unlock;
