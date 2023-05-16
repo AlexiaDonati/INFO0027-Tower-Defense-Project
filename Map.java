@@ -32,11 +32,10 @@ public class Map {
 
     private static Map INSTANCE = null;
 
-    public static Map get_Map() {
+    public static void init_Map() {
         if (INSTANCE == null) {
             INSTANCE = new Map();
         }
-        return INSTANCE;
     }
 
     public static boolean is_cell_empty(int x, int y){

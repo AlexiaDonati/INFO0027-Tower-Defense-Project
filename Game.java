@@ -10,7 +10,6 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     private static final int fps = 30;
     private GameState state;
     private TowerDefenseView view;
-    private static final Map map = Map.get_Map();
 
     private static final Base base = Base.get_Base();
     private TowerManager towerManager;
@@ -23,6 +22,8 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     private float budget;
 
     public Game(){
+        Map.init_Map();
+
         try {
             view = new TowerDefenseView(this);
         } catch (IOException e){
@@ -67,7 +68,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
         towerManager.reset();
         enemyManager.reset();
-        map.reset();
+        Map.reset();
     }
 
     @Override
@@ -76,14 +77,14 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     }
 
     public void add_Tower(int x, int y, int towerIndex) {
-        if(!map.is_cell_empty(x, y)){
+        if(!Map.is_cell_empty(x, y)){
             System.out.print("You can't add a new tower there.\n");
             return;
         }
 
         if(budget - towerManager.get_cost(towerIndex-1) >= 0){
             towerManager.add_Tower(x, y, towerIndex-1);
-            map.add_tower(x, y);
+            Map.add_tower(x, y);
 
             budget -= towerManager.get_cost(towerIndex-1);
             view.updateMoney(budget);
@@ -101,7 +102,6 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     public void update(){
         if(currFrame % 30 == 0){
             int currTime = currFrame/30;
-            float reward = 0;
 
             view.refreshWindow();
 
