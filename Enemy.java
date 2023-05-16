@@ -28,6 +28,7 @@ abstract class Enemy extends ArmedEntity{
     public double get_speed(){ return speed; }
 
     public void advance(){
+        int currentX = get_X(), currentY = get_Y();
         Cell currCell = Map.get_Cell((int) distance);
 
         int maxDistance = Map.get_maxDistance();
@@ -47,11 +48,11 @@ abstract class Enemy extends ArmedEntity{
 
         Map.get_Cell((int) distance).add_Entity(this);
 
-        if(newX > get_X()){ angle = 0; }
-        else if(newX < get_X()){ angle = 180; }
+        if(newX > currentX){ angle = 0; }
+        else if(newX < currentX){ angle = 180; }
         else{
-            if(newY > get_Y()){ angle = 90; }
-            else if(newY < get_Y()){ angle = 270; }
+            if(newY > currentY){ angle = 90; }
+            else if(newY < currentY){ angle = 270; }
         }
     }
 
