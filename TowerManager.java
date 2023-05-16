@@ -65,7 +65,7 @@ public class TowerManager {
             }
 
             try {
-                view.updateTowerField(tower.get_X(), tower.get_Y(), tower.get_sprite(), 0);
+                view.updateTowerField(tower.get_X(), tower.get_Y(), tower.get_sprite(), tower.get_angle());
             } catch (Exception e) {
                 e.printStackTrace();
             }

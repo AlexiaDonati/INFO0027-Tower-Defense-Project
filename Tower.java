@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +48,27 @@ abstract class Tower extends ArmedEntity implements Observer{
         for(Cell c : inRange){
             List<ArmedEntity> enemies = c.give_update();
             if(!enemies.isEmpty()){
-                enemies.get(0).hit(damage);
-                enemies.get(0).apply_ability((this.ability).toString());
+                Enemy enemy = (Enemy) enemies.get(0);
+
+                enemy.hit(damage);
+                enemy.apply_ability((this.ability).toString());
                 hitAnEnemy = true;
+
+                if(enemy.get_X() < get_X()){
+                    angle = 180;
+                }
+                else if(enemy.get_X() > get_X()){
+                    angle = 0;
+                }
+                else if(enemy.get_X() == get_X()){
+                    if(enemy.get_Y() < get_Y()){
+                        angle = 270;
+                    }
+                    else{
+                        angle = 90;
+                    }
+                }
+                
                 break;
             }
         }
