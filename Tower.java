@@ -49,7 +49,7 @@ abstract class Tower extends ArmedEntity implements Observer{
             if(!enemies.isEmpty()){
                 Enemy enemy = (Enemy) enemies.get(0);
 
-                enemy.hit(damage);
+                enemy.get_hit(damage);
                 enemy.apply_ability((this.ability).toString());
                 hitAnEnemy = true;
 

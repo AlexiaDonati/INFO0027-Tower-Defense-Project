@@ -68,9 +68,8 @@ public abstract class ArmedEntity implements Cloneable{
         return 0;
     }
 
-    public int hit(int damage){
+    public void get_hit(int damage){
         health -= damage;
-        return health;
     }
 
     public abstract void apply_ability(String ability);
