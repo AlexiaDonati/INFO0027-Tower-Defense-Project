@@ -42,13 +42,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         startNewGame();
     }
 
-    public void set_state(GameState state){
-        this.state = state;
-    }
+    public void set_state(GameState state){ this.state = state; }
 
     public void next_level(){ currLevel++; }
 
     public int get_level(){ return currLevel; }
+
+    public void deduct_from_budget(float loss){ budget -= loss; }
+
+    public float get_budget(){ return budget; }
 
     @Override
     public void startNewGame() {
@@ -69,25 +71,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
     @Override
     public void moveTowerToField(int x, int y, int towerIndex) {
-        state.moveTowerToField(x, y, towerIndex, this);
-    }
-
-    public void add_Tower(int x, int y, int towerIndex) {
-        if(!Map.is_cell_empty(x, y)){
-            System.out.print("You can't add a new tower there.\n");
-            return;
-        }
-
-        if(budget - towerManager.get_cost(towerIndex-1) >= 0){
-            towerManager.add_Tower(x, y, towerIndex-1);
-            Map.add_tower(x, y);
-
-            budget -= towerManager.get_cost(towerIndex-1);
-            view.updateMoney(budget);
-        }
-        else{
-            System.out.print("You don't have enough money to add that tower.\n");
-        }
+        state.moveTowerToField(x, y, towerIndex, towerManager, this);
     }
 
     @Override
@@ -100,6 +84,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         enemyManager.display(view);
         towerManager.display(view);
         base.display(view);
+        view.updateMoney(budget);
     }
 
     public void update(){
@@ -113,7 +98,6 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             display();
 
             budget += enemyManager.remove();
-            view.updateMoney(budget);
 
             if(enemyManager.checkForWin()){
                 state.stopWave(towerManager, this);
@@ -123,12 +107,10 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             if(!base.get_hit(damage)){
                 gameOver();
             }
-            
         }
     }
 
     public void gameOver(){
-        base.display(view); // Show the empty health of the base to the player
         view.promptNewGame();
     }
 

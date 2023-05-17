@@ -4,7 +4,7 @@ public interface GameState {
     void launchWave(EnemyManager enemyManager, Game game);
     void stopWave(TowerManager towerManager, Game game);
     void play(Game game);
-    void moveTowerToField(int x, int y, int towerIndex, Game game);
+    void moveTowerToField(int x, int y, int towerIndex, TowerManager towerManager, Game game);
 }
 
 class PlayingState implements GameState {
@@ -20,7 +20,7 @@ class PlayingState implements GameState {
         towerManager.check_for_decay();
         try {
             towerManager.unlock(game.get_level());
-            game.next_level();
+            game.go_to_next_level();
         } catch (UnknownTowerException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ class PlayingState implements GameState {
         game.update();
     }
 
-    public void moveTowerToField(int x, int y, int towerIndex, Game game){
+    public void moveTowerToField(int x, int y, int towerIndex, TowerManager towerManager, Game game){
         System.out.print("You can't add a new tower to the field while a wave is still ongoing.\n");
     }
 }
@@ -46,8 +46,23 @@ class PlacingState implements GameState {
 
     public void play(Game game){ }
 
-    public void moveTowerToField(int x, int y, int towerIndex, Game game){
-        game.add_Tower(x, y, towerIndex);
+    public void moveTowerToField(int x, int y, int towerIndex, TowerManager towerManager, Game game){
+        if(!Map.is_cell_empty(x, y)){
+            System.out.print("You can't add a new tower there.\n");
+            return;
+        }
+
+        if(game.get_budget() - towerManager.get_cost(towerIndex-1) >= 0){
+            towerManager.add_Tower(x, y, towerIndex-1);
+            Map.add_tower(x, y);
+
+            game.deduct_from_budget(towerManager.get_cost(towerIndex-1));
+        }
+        else{
+            System.out.print("You don't have enough money to add that tower.\n");
+        }
+
+        game.display();
     }
 }
 

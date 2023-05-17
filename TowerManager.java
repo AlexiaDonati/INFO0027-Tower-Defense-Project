@@ -52,8 +52,6 @@ public class TowerManager {
             Tower newTower = towerType[towerIndex].clone();
             newTower.set_position(x, y);
             listTower.add(newTower);
-
-            view.updateTowerField(x, y, get_sprite(towerIndex), 0);
         } catch (Exception e){
             e.printStackTrace();
         }
