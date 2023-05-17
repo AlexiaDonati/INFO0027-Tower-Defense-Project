@@ -44,7 +44,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
     public void set_state(GameState state){ this.state = state; }
 
-    public void next_level(){ currLevel++; }
+    public void go_to_next_level(){ currLevel++; }
 
     public int get_level(){ return currLevel; }
 
