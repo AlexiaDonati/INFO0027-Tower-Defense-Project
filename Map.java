@@ -52,7 +52,7 @@ public class Map {
 
     public static int get_height(){ return height; }
 
-    public Cell get_Cell(int distance){ return path.get(distance); }
+    public static Cell get_Cell(int distance){ return path.get(distance); }
 
     public static int get_maxDistance(){ return path.size() - 1; }
 
