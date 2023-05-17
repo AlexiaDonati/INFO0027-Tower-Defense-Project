@@ -1,6 +1,5 @@
 import javax.swing.*;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,21 +53,16 @@ abstract class Tower extends ArmedEntity implements Observer{
                 enemy.apply_ability((this.ability).toString());
                 hitAnEnemy = true;
 
-                if(enemy.get_X() < get_X()){
-                    angle = 180;
+                double hypotenuse = get_position().distance(enemy.get_position());
+                double adjacent = enemy.get_X() - get_X();
+                double theta = Math.toDegrees(Math.acos(adjacent/hypotenuse));
+                if(enemy.get_Y() < get_Y()){
+                    angle = (float) (360 - theta);
                 }
-                else if(enemy.get_X() > get_X()){
-                    angle = 0;
+                else{
+                    angle = (float) (theta);
                 }
-                else if(enemy.get_X() == get_X()){
-                    if(enemy.get_Y() < get_Y()){
-                        angle = 270;
-                    }
-                    else{
-                        angle = 90;
-                    }
-                }
-                
+
                 break;
             }
         }

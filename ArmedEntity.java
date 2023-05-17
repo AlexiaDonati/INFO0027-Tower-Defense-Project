@@ -5,7 +5,7 @@ public abstract class ArmedEntity implements Cloneable{
     protected ImageIcon sprite;
 
     private Point2D position;
-    protected int angle;
+    protected float angle;
 
     protected int health;
     protected int range;
@@ -45,7 +45,7 @@ public abstract class ArmedEntity implements Cloneable{
         return (int) position.getY();
     }
 
-    public int get_angle(){
+    public float get_angle(){
         return angle;
     }
 
