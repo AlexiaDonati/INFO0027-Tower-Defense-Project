@@ -37,9 +37,7 @@ public class Cell extends CellSubject{
         entities.remove(e);
     }
 
-    public List<ArmedEntity> give_update(){
-        return entities;
-    }
+    public List<ArmedEntity> give_update(){ return entities; }
 
     public void reset(){
         super.reset();

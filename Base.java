@@ -45,9 +45,7 @@ public class Base {
         health -= damage;
     }
 
-    public boolean is_dead(){
-        return health <= 0;
-    }
+    public boolean is_dead(){ return health <= 0; }
 
     public void update(int currTime){
         if(currTime % healingRate == 0){
