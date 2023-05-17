@@ -3,19 +3,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
 class EnemyManager {
-    private final TowerDefenseView view;
-
     private static final Enemy[] enemyType = {new Enemy1(), new Enemy2(), new Enemy3(), new Enemy4()};
     private List<Enemy> listEnemy;
 
     private int enemyToAdd;
 
-    EnemyManager(TowerDefenseView view) {
-        if(view == null){
-            throw new IllegalArgumentException("Invalid argument");
-        }
-        this.view = view;
-
+    EnemyManager() {
         listEnemy = new ArrayList<Enemy>();
     }
 
@@ -28,9 +21,7 @@ class EnemyManager {
 
         try {
             Enemy enemy = enemyType[randomType].clone();
-            listEnemy.add(enemy);
-
-            view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());
+            listEnemy.add(enemy); 
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,14 +39,8 @@ class EnemyManager {
         return (listEnemy.size() == 0) && (enemyToAdd == 0);
     }
 
-    public float update(){
-        if(enemyToAdd > 0){
-            add_Enemy();
-            enemyToAdd--;
-        }
-
+    public float remove(){
         float money = 0;
-
         List<Enemy> listTemp = new ArrayList<Enemy>(listEnemy);
         for(Enemy enemy : listTemp){
             if(enemy.get_health() <= 0){
@@ -63,19 +48,32 @@ class EnemyManager {
                 enemy.remove();
                 listEnemy.remove(enemy);
             }
-            else{
-                enemy.advance();
-                enemy.handle_effect();
-                try {
-                    view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return money;
     }
 
+    public void update(){
+        for(Enemy enemy : listEnemy){
+            enemy.advance();
+            enemy.handle_effect();
+            
+        }
+
+        if(enemyToAdd > 0){
+            add_Enemy();
+            enemyToAdd--;
+        }
+    }
+
+    public void display(TowerDefenseView view){
+        for(Enemy enemy : listEnemy){
+            try {
+                view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public void reset(){
         listEnemy.clear();
     }

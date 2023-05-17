@@ -39,7 +39,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             e.printStackTrace();
         }
 
-        enemyManager = new EnemyManager(view);
+        enemyManager = new EnemyManager();
 
         startNewGame();
     }
@@ -105,11 +105,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
             view.refreshWindow();
 
+            enemyManager.update();
             towerManager.update(currTime);
 
-            budget += enemyManager.update();
+            enemyManager.display(view);
+            budget += enemyManager.remove();
+
             view.updateMoney(budget);
             if(enemyManager.checkForWin()){
+                enemyManager.display(view);
                 state.stopWave(towerManager, this);
             }
 
