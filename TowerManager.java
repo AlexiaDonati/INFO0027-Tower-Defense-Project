@@ -1,22 +1,14 @@
 import graphics.TowerDefenseView;
-import graphics.exceptions.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TowerManager {
-    private TowerDefenseView view;
-
     private Tower[] towerType = {new Tower1(), new Tower2(), new Tower3(), new Tower4()};
     private List<Tower> listTower;
 
     TowerManager(TowerDefenseView view) {
-        if(view == null){
-            throw new IllegalArgumentException("Invalid argument");
-        }
-        this.view = view;
-
         listTower = new ArrayList<Tower>();
     }
 
@@ -35,12 +27,16 @@ public class TowerManager {
         return towerType[towerIndex].get_sprite(); 
     }
 
-    void unlock(int currLevel) throws UnknownTowerException {
+    List<Integer> can_be_unlocked(int currLevel){
+        List<Integer> canBeUnlocked = new ArrayList<>(towerType.length);
+
         for(int i = 0 ; i < towerType.length ; i++){
             if(currLevel == towerType[i].get_unlock()){
-                view.unlockTower(i);
+                canBeUnlocked.add(i);
             }
         }
+
+        return canBeUnlocked;
     }
 
     void add_Tower(int x, int y, int towerIndex){

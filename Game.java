@@ -68,6 +68,14 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
         display();
     }
+    
+    public void unlock(int towerIndex){
+        try{
+            view.unlockTower(towerIndex);
+        } catch (UnknownTowerException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void moveTowerToField(int x, int y, int towerIndex) {

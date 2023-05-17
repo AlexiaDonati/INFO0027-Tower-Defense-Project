@@ -1,4 +1,4 @@
-import graphics.exceptions.UnknownTowerException;
+import java.util.List;
 
 public interface GameState {
     void launchWave(EnemyManager enemyManager, Game game);
@@ -18,12 +18,12 @@ class PlayingState implements GameState {
         game.set_state(new PlacingState());
 
         towerManager.check_for_decay();
-        try {
-            towerManager.unlock(game.get_level());
-            game.go_to_next_level();
-        } catch (UnknownTowerException e) {
-            e.printStackTrace();
+
+        List<Integer> canBeUnlocked = towerManager.can_be_unlocked(game.get_level());
+        for(Integer towerIndex : canBeUnlocked){
+            game.unlock(towerIndex);
         }
+        game.go_to_next_level();
     }
 
     public void play(Game game){
