@@ -14,6 +14,7 @@ class PlayingState implements GameState {
     }
 
     public void stopWave(TowerManager towerManager, Game game){
+        game.display();
         game.set_state(new PlacingState());
 
         towerManager.check_for_decay();

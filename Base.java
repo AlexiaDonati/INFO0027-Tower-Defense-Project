@@ -29,11 +29,11 @@ public class Base {
 
     public int getY(){ return y; }
 
-    public void update(TowerDefenseView view){
+    public void display(TowerDefenseView view){
         if(view == null){
             throw new IllegalArgumentException("Invalid argument");
         }
-        
+
         try{
             view.updateBase(x, y, health, sprite);
         } catch(WrongBasePositionException | EmptySpriteException e){

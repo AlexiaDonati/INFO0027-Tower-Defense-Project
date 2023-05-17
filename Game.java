@@ -30,8 +30,6 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             e.printStackTrace();
         }
 
-        base.update(view);
-
         towerManager = new TowerManager(view);
         try{
             view.unlockTower(0);
@@ -58,17 +56,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
         currLevel = 1;
 
-        view.refreshWindow();
-
-        base.reset();
-        base.update(view);
-
         budget = startBudget;
         view.updateMoney(budget);
 
+        Map.reset();
+        base.reset();
         towerManager.reset();
         enemyManager.reset();
-        Map.reset();
+
+        display();
     }
 
     @Override
@@ -99,21 +95,27 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         state.launchWave(enemyManager, this);
     }
 
+    public void display(){
+        view.refreshWindow();
+        enemyManager.display(view);
+        towerManager.display(view);
+        base.display(view);
+    }
+
     public void update(){
         if(currFrame % 30 == 0){
             int currTime = currFrame/30;
 
-            view.refreshWindow();
-
             enemyManager.update();
             towerManager.update(currTime);
+            base.action(currTime);
 
-            enemyManager.display(view);
+            display();
+
             budget += enemyManager.remove();
-
             view.updateMoney(budget);
+
             if(enemyManager.checkForWin()){
-                enemyManager.display(view);
                 state.stopWave(towerManager, this);
             }
 
@@ -121,13 +123,12 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             if(!base.get_hit(damage)){
                 gameOver();
             }
-            base.action(currTime);
-            base.update(view);
+            
         }
     }
 
     public void gameOver(){
-        base.update(view); // Show the empty health of the base to the player
+        base.display(view); // Show the empty health of the base to the player
         view.promptNewGame();
     }
 

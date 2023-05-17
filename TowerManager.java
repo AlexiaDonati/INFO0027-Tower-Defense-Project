@@ -63,7 +63,15 @@ public class TowerManager {
             if(tower.can_fire(currTime)){
                 tower.action();
             }
+        }
+    }
 
+    public void display(TowerDefenseView view){
+        if(view == null){
+            throw new IllegalArgumentException("Invalid argument");
+        }
+        
+        for(Tower tower : listTower){
             try {
                 view.updateTowerField(tower.get_X(), tower.get_Y(), tower.get_sprite(), tower.get_angle());
             } catch (Exception e) {

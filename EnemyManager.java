@@ -55,8 +55,7 @@ class EnemyManager {
     public void update(){
         for(Enemy enemy : listEnemy){
             enemy.advance();
-            enemy.handle_effect();
-            
+            enemy.handle_effect();  
         }
 
         if(enemyToAdd > 0){
@@ -66,6 +65,10 @@ class EnemyManager {
     }
 
     public void display(TowerDefenseView view){
+        if(view == null){
+            throw new IllegalArgumentException("Invalid argument");
+        }
+        
         for(Enemy enemy : listEnemy){
             try {
                 view.updateAttackerField(enemy.get_position(), enemy.get_health(), enemy.get_sprite(), enemy.get_angle());
@@ -74,6 +77,7 @@ class EnemyManager {
             }
         }
     }
+
     public void reset(){
         listEnemy.clear();
     }
