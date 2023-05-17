@@ -16,17 +16,6 @@ class EnemyManager {
         enemyToAdd = level * 5;
     }
 
-    public void add_Enemy(){
-        int randomType = ThreadLocalRandom.current().nextInt(0, enemyType.length);
-
-        try {
-            Enemy enemy = enemyType[randomType].clone();
-            listEnemy.add(enemy); 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public int try_to_hit(int x, int y, int currTime){
         int damageSum = 0;
         for (Enemy enemy : listEnemy){
@@ -80,5 +69,16 @@ class EnemyManager {
 
     public void reset(){
         listEnemy.clear();
+    }
+
+    private void add_Enemy(){
+        int randomType = ThreadLocalRandom.current().nextInt(0, enemyType.length);
+
+        try {
+            Enemy enemy = enemyType[randomType].clone();
+            listEnemy.add(enemy); 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
