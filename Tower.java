@@ -15,7 +15,7 @@ abstract class Tower extends ArmedEntity implements Observer{
     private boolean hitAnEnemy;
     private List<Cell> inRange;
 
-    Tower(){
+    protected Tower(){
         inRange = new ArrayList<>();
         reset_hitAnEnemy();
     }
@@ -86,7 +86,8 @@ abstract class Tower extends ArmedEntity implements Observer{
     }
 
     private void remove(){
-        Map.remove_tower(get_X(), get_Y());
+        Map map = Map.get_Map();
+        map.remove_tower(get_X(), get_Y());
         for(Cell c : inRange){
             c.detach_Observer(this);
         }

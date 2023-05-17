@@ -21,21 +21,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     static final float startBudget = 50;
     private float budget;
 
-    public Game(){
-        Map.init_Map();
-
+    private Game(){
         try {
             view = new TowerDefenseView(this);
         } catch (IOException e){
             e.printStackTrace();
         }
 
-        towerManager = new TowerManager(view);
-        try{
-            view.unlockTower(0);
-        } catch (UnknownTowerException e) {
-            e.printStackTrace();
-        }
+        towerManager = new TowerManager();
+        unlock_Tower(0);
 
         enemyManager = new EnemyManager();
 
@@ -61,15 +55,15 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         budget = startBudget;
         view.updateMoney(budget);
 
-        Map.reset();
+        Map.get_Map().reset();
         base.reset();
         towerManager.reset();
         enemyManager.reset();
 
         display();
     }
-    
-    public void unlock(int towerIndex){
+
+    public void unlock_Tower(int towerIndex){
         try{
             view.unlockTower(towerIndex);
         } catch (UnknownTowerException e) {
@@ -105,7 +99,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
             display();
 
-            budget += enemyManager.remove();
+            budget += enemyManager.remove_dead_Enemy();
 
             if(enemyManager.check_for_win()){
                 state.stopWave(towerManager, this);
@@ -114,13 +108,9 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             int damage = enemyManager.try_to_hit(base.getX(), base.getY(), currTime);
             base.get_hit(damage);
             if(base.is_dead()){
-                gameOver();
+                view.promptNewGame();
             }
         }
-    }
-
-    public void gameOver(){
-        view.promptNewGame();
     }
 
     public static void main(String[] args) {

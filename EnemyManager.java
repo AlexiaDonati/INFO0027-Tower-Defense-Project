@@ -8,7 +8,7 @@ class EnemyManager {
 
     private int enemyToAdd;
 
-    EnemyManager() {
+    public EnemyManager() {
         listEnemy = new ArrayList<Enemy>();
     }
 
@@ -28,7 +28,7 @@ class EnemyManager {
         return (listEnemy.size() == 0) && (enemyToAdd == 0);
     }
 
-    public float remove(){
+    public float remove_dead_Enemy(){
         float money = 0;
         List<Enemy> listTemp = new ArrayList<Enemy>(listEnemy);
         for(Enemy enemy : listTemp){

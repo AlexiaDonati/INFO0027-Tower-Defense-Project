@@ -5,9 +5,9 @@ abstract class Enemy extends ArmedEntity{
     protected int reward;
     protected double speed;
     protected double distance;
-    protected HashMap<Power, Integer> effectDuration = new HashMap<>();
+    private HashMap<Power, Integer> effectDuration = new HashMap<>();
 
-    Enemy(){
+    protected Enemy(){
         distance = 0;
         angle = 90;
 

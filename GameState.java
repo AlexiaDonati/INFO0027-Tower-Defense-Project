@@ -21,7 +21,7 @@ class PlayingState implements GameState {
 
         List<Integer> canBeUnlocked = towerManager.can_be_unlocked(game.get_level());
         for(Integer towerIndex : canBeUnlocked){
-            game.unlock(towerIndex);
+            game.unlock_Tower(towerIndex);
         }
         game.go_to_next_level();
     }
@@ -47,14 +47,15 @@ class PlacingState implements GameState {
     public void play(Game game){ }
 
     public void moveTowerToField(int x, int y, int towerIndex, TowerManager towerManager, Game game){
-        if(!Map.is_cell_empty(x, y)){
+        Map map = Map.get_Map();
+        if(!map.is_cell_empty(x, y)){
             System.out.print("You can't add a new tower there.\n");
             return;
         }
 
         if(game.get_budget() - towerManager.get_cost(towerIndex-1) >= 0){
             towerManager.add_Tower(x, y, towerIndex-1);
-            Map.add_tower(x, y);
+            map.add_tower(x, y);
 
             game.deduct_from_budget(towerManager.get_cost(towerIndex-1));
         }
