@@ -34,11 +34,14 @@ public class Map {
 
     private static Map INSTANCE = null;
 
-    public static Map get_Map() {
+    private static void init_Map(){
         if (INSTANCE == null) {
             INSTANCE = new Map();
         }
-
+    }
+    
+    public static Map get_Map() {
+        init_Map();
         return INSTANCE;
     }
 
@@ -52,9 +55,15 @@ public class Map {
 
     public static int get_height(){ return height; }
 
-    public static Cell get_Cell(int distance){ return path.get(distance); }
+    public static Cell get_Cell(int distance){ 
+        init_Map();
+        return path.get(distance); 
+    }
 
-    public static int get_maxDistance(){ return path.size() - 1; }
+    public static int get_maxDistance(){ 
+        init_Map();
+        return path.size() - 1; 
+    }
 
     public void reset(){
         for(Cell c : path){
