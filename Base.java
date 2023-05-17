@@ -13,7 +13,7 @@ public class Base {
     private static final ImageIcon sprite = new ImageIcon("../resources/base/base.png");
 
     private Base() {
-        health = 100;
+        reset();
     }
 
     private static Base INSTANCE = null;
@@ -41,15 +41,15 @@ public class Base {
         }
     }
 
-    public boolean get_hit(int damage){
+    public void get_hit(int damage){
         health -= damage;
-        if(health > 0){
-            return true;
-        }
-        return false;
     }
 
-    public void action(int currTime){
+    public boolean is_dead(){
+        return health <= 0;
+    }
+
+    public void update(int currTime){
         if(currTime % healingRate == 0){
             health += 10;
             if(health >= 100){

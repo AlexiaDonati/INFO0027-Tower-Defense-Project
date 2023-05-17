@@ -93,7 +93,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
             enemyManager.update();
             towerManager.update(currTime);
-            base.action(currTime);
+            base.update(currTime);
 
             display();
 
@@ -104,7 +104,8 @@ public class Game implements TowerDefenseEventsHandlerInterface {
             }
 
             int damage = enemyManager.try_to_hit(base.getX(), base.getY(), currTime);
-            if(!base.get_hit(damage)){
+            base.get_hit(damage);
+            if(base.is_dead()){
                 gameOver();
             }
         }
