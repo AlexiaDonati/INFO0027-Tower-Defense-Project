@@ -1,6 +1,5 @@
 import graphics.TowerDefenseView;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +7,7 @@ public class TowerManager {
     private Tower[] towerType = {new Tower1(), new Tower2(), new Tower3(), new Tower4()};
     private List<Tower> listTower;
 
-    TowerManager(TowerDefenseView view) {
+    public TowerManager() {
         listTower = new ArrayList<Tower>();
     }
 
@@ -19,15 +18,7 @@ public class TowerManager {
         return towerType[towerIndex].get_cost(); 
     }
 
-    public ImageIcon get_sprite(int towerIndex){
-        if(towerIndex < 0 || towerIndex >= towerType.length){
-            throw new IllegalArgumentException("Invalid tower index");
-        }
-
-        return towerType[towerIndex].get_sprite(); 
-    }
-
-    List<Integer> can_be_unlocked(int currLevel){
+    public List<Integer> can_be_unlocked(int currLevel){
         List<Integer> canBeUnlocked = new ArrayList<>(towerType.length);
 
         for(int i = 0 ; i < towerType.length ; i++){
@@ -39,7 +30,7 @@ public class TowerManager {
         return canBeUnlocked;
     }
 
-    void add_Tower(int x, int y, int towerIndex){
+    public void add_Tower(int x, int y, int towerIndex){
         if(towerIndex < 0 || towerIndex >= towerType.length){
             throw new IllegalArgumentException("Invalid tower index.");
         }
@@ -52,6 +43,7 @@ public class TowerManager {
             e.printStackTrace();
         }
     }
+    
     public void update(int currTime){
         for(Tower tower : listTower){
             if(tower.can_fire(currTime)){

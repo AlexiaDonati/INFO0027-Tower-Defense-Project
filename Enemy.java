@@ -5,9 +5,9 @@ abstract class Enemy extends ArmedEntity{
     protected int reward;
     protected double speed;
     protected double distance;
-    protected HashMap<Power, Integer> effectDuration = new HashMap<>();
+    private HashMap<Power, Integer> effectDuration = new HashMap<>();
 
-    Enemy(){
+    protected Enemy(){
         effectDuration.put(Power.SLOW, 0);
         effectDuration.put(Power.STUN, 0);
         effectDuration.put(Power.POISON, 0);
@@ -98,11 +98,11 @@ abstract class Enemy extends ArmedEntity{
         }
     }
 
-    private void effect_handler(Power penalty){
-        Integer timer = effectDuration.get(penalty);
+    private void effect_handler(Power effect){
+        Integer timer = effectDuration.get(effect);
         if(timer != 0){
-            effectDuration.put(penalty, timer-1);
-            if(penalty == Power.POISON){
+            effectDuration.put(effect, timer-1);
+            if(effect == Power.POISON){
                 this.health -= 2;
             }
         }

@@ -15,7 +15,7 @@ abstract class Tower extends ArmedEntity implements Observer{
     private boolean hitAnEnemy;
     private List<Cell> inRange;
 
-    Tower(){
+    protected Tower(){
         inRange = new ArrayList<>();
         reset_hitAnEnemy();
     }

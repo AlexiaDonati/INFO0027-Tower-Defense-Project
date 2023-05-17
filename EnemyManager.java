@@ -8,15 +8,15 @@ class EnemyManager {
 
     private int enemyToAdd;
 
-    EnemyManager() {
+    public EnemyManager() {
         listEnemy = new ArrayList<Enemy>();
     }
 
-    void launch_wave(int level){
+    public void launch_wave(int level){
         enemyToAdd = level * 5;
     }
 
-    void add_Enemy(){
+    private void add_Enemy(){
         int randomType = ThreadLocalRandom.current().nextInt(0, enemyType.length);
 
         try {
@@ -39,7 +39,7 @@ class EnemyManager {
         return (listEnemy.size() == 0) && (enemyToAdd == 0);
     }
 
-    public float remove(){
+    public float remove_dead_Enemy(){
         float money = 0;
         List<Enemy> listTemp = new ArrayList<Enemy>(listEnemy);
         for(Enemy enemy : listTemp){

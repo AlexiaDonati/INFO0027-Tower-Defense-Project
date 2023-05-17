@@ -21,7 +21,7 @@ class PlayingState implements GameState {
 
         List<Integer> canBeUnlocked = towerManager.can_be_unlocked(game.get_level());
         for(Integer towerIndex : canBeUnlocked){
-            game.unlock(towerIndex);
+            game.unlock_Tower(towerIndex);
         }
         game.go_to_next_level();
     }
