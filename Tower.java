@@ -98,15 +98,15 @@ class Tower1 extends Tower {
     Tower1() {
         super();
         sprite = new ImageIcon("../resources/towers/tower1.png");
+
         range = 2;
         damage = 5;
         rate = 1;
 
         cost = 15;
         unlock = 0;
-        ability = Power.NORMAL;
-
         decay = 1;
+        ability = Power.NORMAL;
     }
 
     @Override
@@ -119,15 +119,15 @@ class Tower2 extends Tower {
     Tower2() {
         super();
         sprite = new ImageIcon("../resources/towers/tower2.png");
+
         range = 2;
         damage = 10;
         rate = 2;
 
         cost = 35;
         unlock = 1;
-        ability = Power.SLOW;
-
         decay = 1;
+        ability = Power.SLOW;
     }
 
     @Override
@@ -140,15 +140,15 @@ class Tower3 extends Tower {
     Tower3() {
         super();
         sprite = new ImageIcon("../resources/towers/tower3.png");
+
         range = 3;
         damage = 5;
         rate = 3;
 
         cost = 50;
         unlock = 2;
-        ability = Power.POISON;
-
         decay = 1;
+        ability = Power.POISON;
     }
 
     @Override
@@ -162,15 +162,15 @@ class Tower4 extends Tower {
     Tower4() {
         super();
         sprite = new ImageIcon("../resources/towers/tower4.png");
+        
         range = 2;
         damage = 20;
         rate = 1;
 
         cost = 75;
         unlock = 3;
-        ability = Power.STUN;
-
         decay = 1;
+        ability = Power.STUN;
     }
 
     @Override

@@ -8,13 +8,13 @@ abstract class Enemy extends ArmedEntity{
     private HashMap<Power, Integer> effectDuration = new HashMap<>();
 
     protected Enemy(){
+        distance = 0;
+        angle = 90;
+
         effectDuration.put(Power.SLOW, 0);
         effectDuration.put(Power.STUN, 0);
         effectDuration.put(Power.POISON, 0);
-
-        distance = 0;
         set_position(1, 0);
-        angle = 90;
     }
 
     @Override
@@ -118,7 +118,6 @@ class Enemy1 extends Enemy {
         range = 5;
         damage = 5;
         rate = 1;
-
         reward = 5;
         health = 5;
         speed = 2;
@@ -138,7 +137,6 @@ class Enemy2 extends Enemy {
         range = 4;
         damage = 15;
         rate = 2;
-
         reward = 10;
         health = 15;
         speed = 1;
@@ -158,7 +156,6 @@ class Enemy3 extends Enemy {
         range = 4;
         damage = 25;
         rate = 3;
-
         reward = 15;
         health = 20;
         speed = 1;
@@ -178,7 +175,6 @@ class Enemy4 extends Enemy {
         range = 3;
         damage = 50;
         rate = 5;
-
         reward = 25;
         health = 50;
         speed = 0.5;

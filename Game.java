@@ -103,7 +103,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
 
             budget += enemyManager.remove_dead_Enemy();
 
-            if(enemyManager.checkForWin()){
+            if(enemyManager.check_for_win()){
                 state.stopWave(towerManager, this);
             }
 

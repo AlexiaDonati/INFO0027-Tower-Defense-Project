@@ -35,7 +35,7 @@ class EnemyManager {
         return damageSum;
     }
 
-    public boolean checkForWin(){
+    public boolean check_for_win(){
         return (listEnemy.size() == 0) && (enemyToAdd == 0);
     }
 
