@@ -5,12 +5,13 @@ abstract class Enemy extends ArmedEntity{
     protected int reward;
     protected double speed;
     protected double distance;
-    protected HashMap<State, Integer> effectDuration = new HashMap<>();
+    protected HashMap<Power, Integer> effectDuration = new HashMap<>();
 
     Enemy(){
-        effectDuration.put(State.SLOWED, 0);
-        effectDuration.put(State.STUNNED, 0);
-        effectDuration.put(State.POISONED, 0);
+        effectDuration.put(Power.SLOW, 0);
+        effectDuration.put(Power.STUN, 0);
+        effectDuration.put(Power.POISON, 0);
+
         distance = 0;
         set_position(1, 0);
         angle = 90;
@@ -61,54 +62,47 @@ abstract class Enemy extends ArmedEntity{
         currCell.remove_Entity(this);
     }
 
-    public void apply_ability(String ability){
-        switch(ability){
-            case "NORMAL":
+    public void apply_effect(Power effect){
+        switch(effect){
+            case NORMAL:
                 break;
-            case "SLOW":
-                this.effectDuration.put(State.SLOWED, 2);
+            case SLOW:
+                this.effectDuration.put(Power.SLOW, 2);
                 break;
-            case "STUN":
-                this.effectDuration.put(State.STUNNED, 1);
+            case STUN:
+                this.effectDuration.put(Power.STUN, 1);
                 break;
-            case "POISON":
-                this.effectDuration.put(State.POISONED, 4);
+            case POISON:
+                this.effectDuration.put(Power.POISON, 4);
                 break;
         }
     }
 
-    //I had to do the two following function because I had an issue where I couldn't
-    //loop through my hashmap
     public void handle_effect(){
-        effect_handler(State.STUNNED);
-        effect_handler(State.SLOWED);
-        effect_handler(State.POISONED);
+        for (HashMap.Entry<Power, Integer> effect : effectDuration.entrySet()) {
+            effect_handler(effect.getKey());
+        }
     }
 
-    private void effect_handler(State penalty){
+    private void effect_handler(Power penalty){
         Integer timer = effectDuration.get(penalty);
         if(timer != 0){
             effectDuration.put(penalty, timer-1);
             switch(penalty){
-                case SLOWED:
+                case SLOW:
                     this.speed /= 2;
                     break;
-                case STUNNED:
+                case STUN:
                     this.speed = 0;
                     break;
-                case POISONED:
+                case POISON:
                     this.health -= 2;
                     break;
+                default: break;
             }
         }
     }
 
-}
-
-enum State{
-    STUNNED,
-    POISONED,
-    SLOWED;
 }
 
 class Enemy1 extends Enemy {

@@ -2,6 +2,13 @@ import javax.swing.*;
 import java.awt.geom.Point2D;
 
 public abstract class ArmedEntity implements Cloneable{
+    enum Power{
+        NORMAL,
+        STUN,
+        POISON,
+        SLOW;
+    }
+
     protected ImageIcon sprite;
 
     private Point2D position;
@@ -71,7 +78,5 @@ public abstract class ArmedEntity implements Cloneable{
     public void get_hit(int damage){
         health -= damage;
     }
-
-    public abstract void apply_ability(String ability);
 
 }

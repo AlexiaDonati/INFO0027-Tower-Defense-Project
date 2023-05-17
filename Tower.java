@@ -6,6 +6,7 @@ import java.util.List;
 interface Observer {}
 
 abstract class Tower extends ArmedEntity implements Observer{
+
     protected int cost;
     protected int unlock;
     protected int decay;
@@ -50,7 +51,7 @@ abstract class Tower extends ArmedEntity implements Observer{
                 Enemy enemy = (Enemy) enemies.get(0);
 
                 enemy.get_hit(damage);
-                enemy.apply_ability((this.ability).toString());
+                enemy.apply_effect(this.ability);
                 hitAnEnemy = true;
 
                 double hypotenuse = get_position().distance(enemy.get_position());
@@ -67,8 +68,6 @@ abstract class Tower extends ArmedEntity implements Observer{
             }
         }
     }
-
-    public void apply_ability(String ability){}
 
     protected void reset_hitAnEnemy(){
         hitAnEnemy = false;
@@ -93,13 +92,6 @@ abstract class Tower extends ArmedEntity implements Observer{
         }
 
     }
-}
-
-enum Power{
-    NORMAL,
-    STUN,
-    POISON,
-    SLOW;
 }
 
 class Tower1 extends Tower {
