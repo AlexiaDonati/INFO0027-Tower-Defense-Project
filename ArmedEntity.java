@@ -8,16 +8,16 @@ public abstract class ArmedEntity implements Cloneable{
         POISON,
         SLOW;
     }
-
-    protected ImageIcon sprite;
-
-    private Point2D position;
-    protected float angle;
-
+    
     protected int health;
     protected int range;
     protected int damage;
     protected int rate;
+
+    protected ImageIcon sprite;
+
+    protected float angle;
+    private Point2D position;
 
     ArmedEntity(){
         position = new Point2D.Double(0, 0);

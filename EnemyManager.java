@@ -12,11 +12,11 @@ class EnemyManager {
         listEnemy = new ArrayList<Enemy>();
     }
 
-    void launch_wave(int level){
+    public void launch_wave(int level){
         enemyToAdd = level * 5;
     }
 
-    void add_Enemy(){
+    public void add_Enemy(){
         int randomType = ThreadLocalRandom.current().nextInt(0, enemyType.length);
 
         try {
@@ -35,7 +35,7 @@ class EnemyManager {
         return damageSum;
     }
 
-    public boolean checkForWin(){
+    public boolean check_for_win(){
         return (listEnemy.size() == 0) && (enemyToAdd == 0);
     }
 
