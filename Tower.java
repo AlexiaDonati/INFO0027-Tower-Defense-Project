@@ -36,7 +36,7 @@ abstract class Tower extends ArmedEntity implements Observer{
         super.set_position(x, y);
 
         for(int i = Map.get_maxDistance() ; i >= 0 ; i--){
-            Cell c = Map.get_Cell(i);
+            Cell c = Map.get_Map().get_Cell(i);
             if(can_reach(c.get_x(), c.get_y())){
                 inRange.add(c);
                 c.attach_Observer(this);
@@ -86,7 +86,8 @@ abstract class Tower extends ArmedEntity implements Observer{
     }
 
     private void remove(){
-        Map.remove_tower(get_X(), get_Y());
+        Map map = Map.get_Map();
+        map.remove_tower(get_X(), get_Y());
         for(Cell c : inRange){
             c.detach_Observer(this);
         }

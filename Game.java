@@ -22,8 +22,6 @@ public class Game implements TowerDefenseEventsHandlerInterface {
     private float budget;
 
     private Game(){
-        Map.init_Map();
-
         try {
             view = new TowerDefenseView(this);
         } catch (IOException e){
@@ -57,7 +55,7 @@ public class Game implements TowerDefenseEventsHandlerInterface {
         budget = startBudget;
         view.updateMoney(budget);
 
-        Map.reset();
+        Map.get_Map().reset();
         base.reset();
         towerManager.reset();
         enemyManager.reset();

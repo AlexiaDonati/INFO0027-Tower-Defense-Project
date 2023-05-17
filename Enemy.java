@@ -41,8 +41,9 @@ abstract class Enemy extends ArmedEntity{
     }
 
     public void advance(){
+        Map map = Map.get_Map();
         int currentX = get_X(), currentY = get_Y();
-        Cell currCell = Map.get_Cell((int) distance);
+        Cell currCell = map.get_Cell((int) distance);
 
         double speedWithEffect = get_speed();
 
@@ -57,11 +58,11 @@ abstract class Enemy extends ArmedEntity{
             distance += speedWithEffect;
         }
 
-        int newX = Map.get_Cell((int) distance).get_x();
-        int newY = Map.get_Cell((int) distance).get_y();
+        int newX = map.get_Cell((int) distance).get_x();
+        int newY = map.get_Cell((int) distance).get_y();
         set_position(newX, newY);
 
-        Map.get_Cell((int) distance).add_Entity(this);
+        map.get_Cell((int) distance).add_Entity(this);
 
         if(newX > currentX){ angle = 0; }
         else if(newX < currentX){ angle = 180; }
@@ -72,7 +73,8 @@ abstract class Enemy extends ArmedEntity{
     }
 
     public void remove(){
-        Cell currCell = Map.get_Cell((int) distance);
+        Map map = Map.get_Map();
+        Cell currCell = map.get_Cell((int) distance);
         currCell.remove_Entity(this);
     }
 
