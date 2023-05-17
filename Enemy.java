@@ -26,21 +26,35 @@ abstract class Enemy extends ArmedEntity{
 
     public int get_reward(){ return reward; }
 
-    public double get_speed(){ return speed; }
+    public double get_speed(){ 
+        int stunTimer = effectDuration.get(Power.STUN);
+        if(stunTimer > 0){
+            return 0;
+        }
+
+        int slowTimer = effectDuration.get(Power.SLOW);
+        if(slowTimer > 0){
+            return speed/2;
+        }
+
+        return speed;
+    }
 
     public void advance(){
         int currentX = get_X(), currentY = get_Y();
         Cell currCell = Map.get_Cell((int) distance);
 
+        double speedWithEffect = get_speed();
+
         int maxDistance = Map.get_maxDistance();
         if(distance >= maxDistance){ return; } // The enemy is already at his maximum distance.
-        else if(distance + speed >= maxDistance){ // The enemy is almost at his maximum distance.
+        else if(distance + speedWithEffect >= maxDistance){ // The enemy is almost at his maximum distance.
             currCell.remove_Entity(this);
             distance = maxDistance;
         }
         else{ // The enemy is not at or almost at his maximum distance.
             currCell.remove_Entity(this);
-            distance += speed;
+            distance += speedWithEffect;
         }
 
         int newX = Map.get_Cell((int) distance).get_x();
@@ -88,17 +102,8 @@ abstract class Enemy extends ArmedEntity{
         Integer timer = effectDuration.get(penalty);
         if(timer != 0){
             effectDuration.put(penalty, timer-1);
-            switch(penalty){
-                case SLOW:
-                    this.speed /= 2;
-                    break;
-                case STUN:
-                    this.speed = 0;
-                    break;
-                case POISON:
-                    this.health -= 2;
-                    break;
-                default: break;
+            if(penalty == Power.POISON){
+                this.health -= 2;
             }
         }
     }
